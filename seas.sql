@@ -2,8 +2,6 @@ DROP DATABASE IF EXISTS SEAS;
 CREATE DATABASE SEAS;
 USE SEAS; 
 
-SET sql_mode = '';
-
 /* Tables */
 
 DROP TABLE IF EXISTS SOURCE;
@@ -44,7 +42,7 @@ DROP TABLE IF EXISTS REVIEW;
 CREATE TABLE REVIEW (
 	userID INT,
 	waterbodyID INT,
-	reviewDate DATE NOT NULL DEFAULT '0000-00-00',
+	reviewDate DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	rating INT NOT NULL DEFAULT 1,
     PRIMARY KEY (userID, waterbodyID),
 	FOREIGN KEY (userID) REFERENCES User(userID) on delete cascade,
@@ -57,7 +55,7 @@ CREATE TABLE WATERRATING (
 	waterbodyID INT,
 	numRating INT NOT NULL DEFAULT 0,
 	avgRating INT,
-	lastUpdated DATE NOT NULL DEFAULT '0000-00-00',
+	lastUpdated DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade	
 );
 
@@ -67,7 +65,7 @@ CREATE TABLE ARCHIVERATING (
 	waterbodyID INT,
 	numRating INT NOT NULL DEFAULT 0,
 	avgRating INT,
-	lastUpdated DATE NOT NULL DEFAULT '0000-00-00',
+	lastUpdated DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
 );
 
