@@ -6,8 +6,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
 public class WaterbodyPage extends JFrame {
@@ -56,22 +60,31 @@ public class WaterbodyPage extends JFrame {
 		sourceLabel.setBounds(42, 116, 120, 16);
 		waterbodyPanel.add(sourceLabel);
 		
-		JLabel rateLabel = new JLabel("Rating:");
+		JLabel rateLabel = new JLabel("Rating: #");
 		rateLabel.setBounds(42, 191, 61, 16);
 		waterbodyPanel.add(rateLabel);
 		
-		JLabel avgLabel = new JLabel("avg");
-		avgLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		JLabel avgLabel = new JLabel("#");
+		//avgLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		avgLabel.setBounds(42, 211, 41, 28);
 		waterbodyPanel.add(avgLabel);
 		
-		JLabel totalNumLabel = new JLabel("totalNum");
-		totalNumLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		totalNumLabel.setBounds(114, 212, 61, 28);
+		JLabel totalNumLabel = new JLabel("(#)");
+		//totalNumLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		totalNumLabel.setBounds(60, 211, 41, 28);
 		waterbodyPanel.add(totalNumLabel);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(122, 186, 117, 29);
+		JButton btnNewButton = new JButton("+");
+		btnNewButton.setFont(new Font("plain", Font.PLAIN, 20));
+		btnNewButton.setBounds(165, 200, 50, 40);
+		btnNewButton.setBackground(null);
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Object input = JOptionPane.showInputDialog("Enter rating: ");
+				//System.out.println("You entered: " + input);
+			}
+		});
 		waterbodyPanel.add(btnNewButton);
 		
 		JLabel waterName = new JLabel("Name");
