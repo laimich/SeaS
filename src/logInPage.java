@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class logInPage extends JFrame {
+public class LogInPage extends JFrame {
 
 	private JPanel logInMainPanel;
 	private JTextField userNameText;
@@ -24,7 +24,7 @@ public class logInPage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					logInPage frame = new logInPage();
+					LogInPage frame = new LogInPage();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +36,7 @@ public class logInPage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public logInPage() {
+	public LogInPage() {
 		setTitle("SeaS Log In Page");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

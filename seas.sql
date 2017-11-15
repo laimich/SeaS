@@ -60,13 +60,15 @@ CREATE TABLE WATERRATING (
 );
 
 
-DROP TABLE IF EXISTS ARCHIVERATING;
-CREATE TABLE ARCHIVERATING (
+DROP TABLE IF EXISTS ARCHIVEREVIEW;
+CREATE TABLE ARCHIVEREVIEW (
+	userID INT,
 	waterbodyID INT,
-	numRating INT NOT NULL DEFAULT 0,
-	avgRating INT,
-	lastUpdated DATE NOT NULL DEFAULT '0000-00-00',
-    FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
+	reviewDate DATE NOT NULL DEFAULT '0000-00-00',
+	rating INT NOT NULL DEFAULT 1,
+    PRIMARY KEY (userID, waterbodyID),
+	FOREIGN KEY (userID) REFERENCES User(userID) on delete cascade,
+	FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
 );
 
 
@@ -129,6 +131,11 @@ BEGIN
 	INSERT INTO WaterRating (waterbodyID) VALUES (New.waterbodyID); 
 END; //
 DELIMITER ;
+
+
+/* Stored Procedures */
+
+
 
 
 

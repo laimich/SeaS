@@ -1,4 +1,6 @@
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,7 +12,7 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
-public class registerPage extends JFrame {
+public class RegisterPage extends JFrame {
 
 	private JPanel registerMainPanel;
 	private JTextField userNameText;
@@ -24,7 +26,7 @@ public class registerPage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					registerPage frame = new registerPage();
+					RegisterPage frame = new RegisterPage();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +38,7 @@ public class registerPage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public registerPage() {
+	public RegisterPage() {
 		setTitle("SeaS Register Page");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -67,6 +69,14 @@ public class registerPage extends JFrame {
 		JButton btnNewButton = new JButton("Create");
 		btnNewButton.setBounds(166, 222, 117, 29);
 		registerMainPanel.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+			
+		});
 		
 		ifExistUser = new JTextField();
 		ifExistUser.setHorizontalAlignment(SwingConstants.CENTER);
