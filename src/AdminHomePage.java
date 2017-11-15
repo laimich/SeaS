@@ -14,6 +14,8 @@ public class AdminHomePage extends JFrame {
 
 	private JPanel AdminMainPanel;
 	private JTextField txtEnterWaterbody;
+	private WaterModel model;
+
 
 	/**
 	 * Launch the application.

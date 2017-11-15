@@ -13,6 +13,8 @@ import javax.swing.JButton;
 public class WaterbodyPage extends JFrame {
 
 	private JPanel waterbodyPanel;
+	private WaterModel model;
+
 
 	/**
 	 * Launch the application.

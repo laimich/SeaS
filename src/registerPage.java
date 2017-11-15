@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -18,6 +19,7 @@ public class RegisterPage extends JFrame {
 	private JTextField userNameText;
 	private JTextField passwordsText;
 	private JTextField ifExistUser;
+	private WaterModel model;
 
 	/**
 	 * Launch the application.
@@ -72,7 +74,10 @@ public class RegisterPage extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				//JOptionPane.showMessageDialog(null, "Test popup message");
+				//Object input = JOptionPane.showInputDialog("Enter test");
+				//System.out.println("You entered: " + input);
+				System.out.println();
 				
 			}
 			

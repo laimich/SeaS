@@ -12,6 +12,8 @@ import javax.swing.JList;
 public class LocationPage extends JFrame {
 
 	private JPanel contentPane;
+	private WaterModel model;
+
 
 	/**
 	 * Launch the application.

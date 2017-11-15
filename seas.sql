@@ -76,9 +76,9 @@ CREATE TABLE ARCHIVEREVIEW (
 
 /* When new Review added, 
     increment numRating, update lastUpdated, recalculate avgRating for corresponding WaterRating */
-DROP TRIGGER IF EXISTS addWaterRating;
+DROP TRIGGER IF EXISTS addWaterRating; 
 DELIMITER //
-CREATE TRIGGER seas.addWaterRating 
+CREATE TRIGGER addWaterRating 
 AFTER INSERT on Review 
 FOR EACH ROW 
 BEGIN 
@@ -122,8 +122,8 @@ END; //
 DELIMITER ;
 
 /* When new Waterbody is added, insert a new WaterRating to represent it */
-DROP TRIGGER IF EXISTS newWaterbody;
-DELIMITER //
+DROP TRIGGER IF EXISTS newWaterbody; 
+DELIMITER // 
 CREATE TRIGGER newWaterbody 
 AFTER INSERT ON Waterbody 
 FOR EACH ROW 

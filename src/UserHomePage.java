@@ -13,6 +13,8 @@ public class UserHomePage extends JFrame {
 
 	private JPanel homePagePanel;
 	private JTextField seachArea;
+	private WaterModel model;
+
 
 	/**
 	 * Launch the application.
