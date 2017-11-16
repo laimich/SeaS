@@ -72,21 +72,3 @@ public class WaterModel {
 	}
 
 }
-
-
-//try {
-////establish connection
-//conn = DriverManager.getConnection(DB_URL, USER, PASS);
-////execute query
-//stmt = conn.createStatement();
-//rs = stmt.executeQuery(sql);
-//} 
-//catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
-//catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
-//finally{ //finally block used to close resources
-//try{ if(stmt!=null) stmt.close(); }
-//catch(SQLException se2){} //Nothing we can do
-//try{ if(conn!=null) conn.close(); } 
-//catch(SQLException se){ se.printStackTrace(); }
-////end finally try
-//}//end try	
