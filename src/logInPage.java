@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
@@ -74,6 +75,17 @@ public class LogInPage extends JFrame {
 		logInButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				String username = userNameText.getText().trim();
+				String password = passwordText.getText().trim();
+				if(username.equals("") || password.equals("")) {
+					JOptionPane.showMessageDialog(null, "Invalid username/password combination");
+					return;
+				}
+				if(model.isAccountAvailable(username)) {
+					model.createAccount(username, password);
+					LogInPage login = new LogInPage(model);
+					dispose();
+				}
 				//check if login successfull, set current user
 				
 				//depend type of user, send to user or admin homepage

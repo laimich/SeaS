@@ -10,12 +10,14 @@ public class WaterModel {
 	static final String USER = "root";
 	static final String PASS = "newpass";
 
+	private User currentUser;
 	private Connection conn;
 	private Statement stmt;
 	private PreparedStatement pstmt;
 	private CallableStatement cs;
 
 	public WaterModel() {
+		currentUser = null;
 		conn = null;
 		stmt = null;
 		pstmt = null;
@@ -23,7 +25,6 @@ public class WaterModel {
 	}
 
 	public void createAccount(String username, String password) {
-		String sql = "";
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -57,6 +58,35 @@ public class WaterModel {
 			rs = pstmt.executeQuery();
 			//if no existing accounts with the same name, return true
 			if(!rs.next()) return true;
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+		return false;
+	}
+	
+	public boolean canLogin(String username, String password) {
+		ResultSet rs = null;
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			cs = conn.prepareCall("{CALL userLogin(?, ?, ?, ?)}");
+			cs.setString(1, username);
+			cs.setString(2, password);
+			cs.registerOutParameter(3, Types.INTEGER);
+			cs.registerOutParameter(4, Types.INTEGER);
+			rs = cs.executeQuery();
+			
+			if(rs.next()) {
+				//currentUser = new User(cs.getInt(3), )
+			}
 		} 
 		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
 		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
