@@ -207,6 +207,17 @@ end; //
 delimiter //
 
 
+/* To let user add a rating*/
+Drop procedure if exists addRating;
+Delimiter //
+create procedure addRating(in inputUserID int, in inputWaterbodyID int, in inpurRating int)
+begin
+	INSERT into Review (userID, waterbodyID, reviewDate, rating) 
+	VALUES (inputUserID, inputWaterbodyID, null, inpurRating);
+end; //
+delimiter //
+
+
 
 /* User views average  rating for all waterbodies in a location */
 DROP PROCEDURE IF EXISTS avgRatingLocation;
