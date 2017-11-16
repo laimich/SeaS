@@ -151,12 +151,68 @@ Delimiter //
 create procedure createAccount(in  inputName varchar(30), in inputPassword varchar(30))
 begin
 		insert into USER values (null, inputName ,inputPassword , 1, 'user' );
-end; //
+end//
 delimiter ;
 
 
+/* Admin updates credentials of a waterbody */
+DROP PROCEDURE IF EXISTS updateWaterbody;
+DELIMITER //
+CREATE PROCEDURE updateWaterbody(IN inputCredentials INT, IN searchName VARCHAR(30))
+BEGIN
+	UPDATE Waterbody
+	SET minCredentials = inputCredentials
+	WHERE waterbodyName = searchName
+END//
+DELIMITER ;
+
+/* Admin deletes a rating */
+DROP PROCEDURE IF EXISTS deleteReview;
+DELIMITER //
+CREATE PROCEDURE deleteReview(IN searchName VARCHAR(30), IN inputUserID INT, IN inputDate DATE, IN inputRating INT)
+BEGIN
+	DELETE FROM Review
+	WHERE searchName = (SELECT waterbodyName FROM Waterbody) AND
+		(inputUserID, inputDate, inputRating) IN 
+			(SELECT userID, reviewDate, rating FROM Review)
+END//
+DELIMITER ;
 
 
+/* Admin views all ratings of a waterbody */
+DROP PROCEDURE IF EXISTS viewAllRatings;
+DELIMITER //
+CREATE PROCEDURE viewAllRatings(IN inputName VARCHAR(30))
+BEGIN 
+	SELECT userID, rating, reviewDate
+	FROM Waterbody wb
+	WHERE EXISTS (SELECT * FROM Review r WHERE wb.waterbodyID = r.waterbodyID)
+		AND waterbodyName = inputName;
+END//
+DELIMITER ;
+
+/* Admin adds a new waterbody */
+DROP PROCEDURE IF EXISTS addWaterbody;
+DELIMITER //
+CREATE PROCEDURE addWaterbody(IN inputWaterbodyName VARCHAR(30), IN inputMinCredentials INT)
+BEGIN 
+	INSERT INTO waterbody(waterbodyName, waterID, minCredentials) 
+		VALUES (inputWaterbodyName, 
+			(SELECT waterID FROM Origin WHERE inputWaterID = waterID), 
+			inputMinCredentials);
+END//
+DELIMITER ;
+
+/* system updates user credentials */
+DROP PROCEDURE IF EXISTS updateCredentials
+DELIMITER //
+CREATE PROCEDURE updateCredentials(IN newCredential, targetUserID)
+BEGIN
+	UPDATE User
+	SET credentials = newCredential
+	WHERE user.userID = targetUserID;
+END//
+DELIMITER ;
 
 
 /* Load Data */
