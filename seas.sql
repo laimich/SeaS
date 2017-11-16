@@ -146,17 +146,6 @@ BEGIN
 END; //
 DELIMITER ;
 
-/* User views average  rating for all waterbodies in a location */
-DROP PROCEDURE IF EXISTS avgRatingLocation;
-DELIMITER // 
-CREATE PROCEDURE avgRatingLocation(IN loc VARCHAR(30), OUT avg INT) 
-BEGIN	
-	SELECT avg(avgRating)
-	FROM Origin JOIN Waterbody USING(waterID) JOIN Waterrating USING (waterbodyID)
-	GROUP BY location
-	HAVING location = loc; 
-END; //
-DELIMITER ;
 
 /* To store the user accounts into USER table based on the input name, input passwords */
 Drop procedure if exists createAccount;
@@ -179,7 +168,168 @@ begin
 end; //
 delimiter ;
 
+/* To search for a waterbody or location from user input*/ 
+Drop procedure if exists searchWaterbodyOrLocation;
+Delimiter //
+create procedure searchWaterBodyOrLocation(in searchName varchar(30), out desiredID int)
+begin
+		insert into USER values (null, inputName ,inputPassword , 1, 'user' );
+end//
+delimiter ;
 
+
+/* Admin updates credentials of a waterbody */
+DROP PROCEDURE IF EXISTS updateWaterbody;
+DELIMITER //
+CREATE PROCEDURE updateWaterbody(IN inputCredentials INT, IN searchName VARCHAR(30))
+BEGIN
+	UPDATE Waterbody
+	SET minCredentials = inputCredentials
+	WHERE waterbodyName = searchName
+END//
+DELIMITER ;
+
+/* Admin deletes a rating */
+DROP PROCEDURE IF EXISTS deleteReview;
+DELIMITER //
+CREATE PROCEDURE deleteReview(IN searchName VARCHAR(30), IN inputUserID INT, IN inputDate DATE, IN inputRating INT)
+BEGIN
+	DELETE FROM Review
+	WHERE searchName = (SELECT waterbodyName FROM Waterbody) AND
+		(inputUserID, inputDate, inputRating) IN 
+			(SELECT userID, reviewDate, rating FROM Review)
+END//
+DELIMITER ;
+
+
+/* Admin views all ratings of a waterbody */
+DROP PROCEDURE IF EXISTS viewAllRatings;
+DELIMITER //
+CREATE PROCEDURE viewAllRatings(IN inputName VARCHAR(30))
+BEGIN 
+	SELECT userID, rating, reviewDate
+	FROM Waterbody wb
+	WHERE EXISTS (SELECT * FROM Review r WHERE wb.waterbodyID = r.waterbodyID)
+		AND waterbodyName = inputName;
+END//
+DELIMITER ;
+
+/* Admin adds a new waterbody */
+DROP PROCEDURE IF EXISTS addWaterbody;
+DELIMITER //
+CREATE PROCEDURE addWaterbody(IN inputWaterbodyName VARCHAR(30), IN inputMinCredentials INT)
+BEGIN 
+	INSERT INTO waterbody(waterbodyName, waterID, minCredentials) 
+		VALUES (inputWaterbodyName, 
+			(SELECT waterID FROM Origin WHERE inputWaterID = waterID), 
+			inputMinCredentials);
+END//
+DELIMITER ;
+
+/* system updates user credentials */
+DROP PROCEDURE IF EXISTS updateCredentials
+DELIMITER //
+CREATE PROCEDURE updateCredentials(IN newCredential, targetUserID)
+BEGIN
+	UPDATE User
+	SET credentials = newCredential
+	WHERE user.userID = targetUserID;
+END//
+DELIMITER ;
+	select waterbodyID from Waterbody where searchName = waterbodyName
+		union 
+	select waterID from origin where searchName = location;
+end; //
+delimiter ;
+
+
+/* To view information for a waterbody search */
+Drop procedure if exists viewInfo;
+Delimiter //
+create procedure viewInfo(in inputWaterbodyName varchar(30))
+begin
+	SELECT location, waterName, waterbodyName, avgRating
+	FROM Origin, Waterbody, Waterrating
+	WHERE inputWaterbodyName = waterbodyName AND 
+		Origin.waterID = waterbody.waterID AND 
+		waterbody.waterbodyID = waterrating.waterbodyID;
+
+end; //
+delimiter //
+
+
+/* To view list of waterbodies for a location search */
+Drop procedure if exists viewWaterbodiesFromLocation;
+Delimiter //
+create procedure viewWaterbodiesFromLocation(in userSearchLocation varchar(30))
+begin
+	SELECT waterName, waterbodyName
+	FROM Origin JOIN Waterbody USING(waterID)
+	WHERE userSeachLocation = location;
+end; //
+delimiter //
+
+
+/* To let user add a rating*/
+Drop procedure if exists addRating;
+Delimiter //
+create procedure addRating(in inputUserID int, in inputWaterbodyID int, in inpurRating int)
+begin
+	INSERT into Review (userID, waterbodyID, reviewDate, rating) 
+	VALUES (inputUserID, inputWaterbodyID, null, inpurRating);
+end; //
+delimiter //
+
+
+/* To view number of reviews that user have given */
+Drop procedure if exists viewNumReviews;
+Delimiter //
+create procedure viewNumReviews(in inputUser int, out numViews int)
+begin
+	SELECT count(rating)
+	FROM User JOIN Review
+	WHERE inputUser = userID;
+end; //
+delimiter //
+
+
+/* To view all revies given by every user for admin*/
+Drop procedure if exists adminViewReview;
+Delimiter //
+Create procedure adminViewReview()
+begin
+	SELECT userID, userName, waterbodyName, reviewDate, rating 
+	FROM User LEFT OUTER JOIN 
+		(SELECT userID, waterbodyName, reviewDate, rating 
+		FROM Review INNER JOIN Waterbody USING (waterbodyID)) as AllReviews
+		ON (userID);	
+end; //
+delimiter //
+
+
+/* System checks user credentials to waterbody credentials*/
+Drop procedure if exists checkCredentials;
+Delimiter //
+Create procedure checkCredentials(in inputUser int)
+begin
+	SELECT *
+	FROM Waterbody wb JOIN User u ON(wb.credentials <= u.credentials)
+	WHERE inputUser = userID;
+end; //
+delimiter //
+
+
+/* User views average  rating for all waterbodies in a location */
+DROP PROCEDURE IF EXISTS avgRatingLocation;
+DELIMITER // 
+CREATE PROCEDURE avgRatingLocation(IN loc VARCHAR(30), OUT avg INT) 
+BEGIN	
+	SELECT avg(avgRating)
+	FROM Origin JOIN Waterbody USING(waterID) JOIN Waterrating USING (waterbodyID)
+	GROUP BY location
+	HAVING location = loc; 
+END; //
+DELIMITER ;
 
 /* Load Data */
 /* LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/books.txt' INTO TABLE BOOK;
