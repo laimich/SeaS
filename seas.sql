@@ -169,7 +169,7 @@ end; //
 delimiter ;
 
 /* To search for a waterbody or location from user input*/ 
-Drop procedure if exists searchWaterbodyOrLocation
+Drop procedure if exists searchWaterbodyOrLocation;
 Delimiter //
 create procedure searchWaterBodyOrLocation(in searchName varchar(30), out desiredID int)
 begin
@@ -178,6 +178,34 @@ begin
 	select waterID from origin where searchName = location;
 end; //
 delimiter ;
+
+
+/* To view information for a waterbody search */
+Drop procedure if exists viewInfo;
+Delimiter //
+create procedure viewInfo(in inputWaterbodyName varchar(30))
+begin
+	SELECT location, waterName, waterbodyName, avgRating
+	FROM Origin, Waterbody, Waterrating
+	WHERE inputWaterbodyName = waterbodyName AND 
+		Origin.waterID = waterbody.waterID AND 
+		waterbody.waterbodyID = waterrating.waterbodyID;
+
+end; //
+delimiter //
+
+
+/* To view list of waterbodies for a location search */
+Drop procedure if exists viewWaterbodiesFromLocation;
+Delimiter //
+create procedure viewWaterbodiesFromLocation(in userSearchLocation varchar(30))
+begin
+	SELECT waterName, waterbodyName
+	FROM Origin JOIN Waterbody USING(waterID)
+	WHERE userSeachLocation = location;
+end; //
+delimiter //
+
 
 
 /* User views average  rating for all waterbodies in a location */
