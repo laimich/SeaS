@@ -171,7 +171,9 @@ Drop procedure if exists searchWaterbodyOrLocation;
 Delimiter //
 create procedure searchWaterBodyOrLocation(in searchName varchar(30), out desiredID int)
 begin
-		insert into USER values (null, inputName ,inputPassword , 1, 'user' );
+		select waterbodyID from Waterbody where searchName = waterbodyName
+		union 
+	select waterID from origin where searchName = location;
 end//
 delimiter ;
 
@@ -183,7 +185,7 @@ CREATE PROCEDURE updateWaterbody(IN inputCredentials INT, IN searchName VARCHAR(
 BEGIN
 	UPDATE Waterbody
 	SET minCredentials = inputCredentials
-	WHERE waterbodyName = searchName
+	WHERE waterbodyName = searchName;
 END//
 DELIMITER ;
 
@@ -195,7 +197,7 @@ BEGIN
 	DELETE FROM Review
 	WHERE searchName = (SELECT waterbodyName FROM Waterbody) AND
 		(inputUserID, inputDate, inputRating) IN 
-			(SELECT userID, reviewDate, rating FROM Review)
+			(SELECT userID, reviewDate, rating FROM Review);
 END//
 DELIMITER ;
 
@@ -234,11 +236,7 @@ BEGIN
 	WHERE user.userID = targetUserID;
 END//
 DELIMITER ;
-	select waterbodyID from Waterbody where searchName = waterbodyName
-		union 
-	select waterID from origin where searchName = location;
-end //
-delimiter //
+	
 
 
 /* To view information for a waterbody search */
@@ -328,7 +326,6 @@ BEGIN
 	HAVING location = loc; 
 END; //
 DELIMITER ;
-
 /* Load Data */
 /* LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/books.txt' INTO TABLE BOOK;
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/users.txt' INTO TABLE USER;
