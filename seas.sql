@@ -146,17 +146,6 @@ BEGIN
 END; //
 DELIMITER ;
 
-/* User views average  rating for all waterbodies in a location */
-DROP PROCEDURE IF EXISTS avgRatingLocation;
-DELIMITER // 
-CREATE PROCEDURE avgRatingLocation(IN loc VARCHAR(30), OUT avg INT) 
-BEGIN	
-	SELECT avg(avgRating)
-	FROM Origin JOIN Waterbody USING(waterID) JOIN Waterrating USING (waterbodyID)
-	GROUP BY location
-	HAVING location = loc; 
-END; //
-DELIMITER ;
 
 /* To store the user accounts into USER table based on the input name, input passwords */
 Drop procedure if exists createAccount;
@@ -179,7 +168,29 @@ begin
 end; //
 delimiter ;
 
+/* To search for a waterbody or location from user input*/ 
+Drop procedure if exists searchWaterbodyOrLocation
+Delimiter //
+create procedure searchWaterBodyOrLocation(in searchName varchar(30), out desiredID int)
+begin
+	select waterbodyID from Waterbody where searchName = waterbodyName
+		union 
+	select waterID from origin where searchName = location;
+end; //
+delimiter ;
 
+
+/* User views average  rating for all waterbodies in a location */
+DROP PROCEDURE IF EXISTS avgRatingLocation;
+DELIMITER // 
+CREATE PROCEDURE avgRatingLocation(IN loc VARCHAR(30), OUT avg INT) 
+BEGIN	
+	SELECT avg(avgRating)
+	FROM Origin JOIN Waterbody USING(waterID) JOIN Waterrating USING (waterbodyID)
+	GROUP BY location
+	HAVING location = loc; 
+END; //
+DELIMITER ;
 
 /* Load Data */
 /* LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/books.txt' INTO TABLE BOOK;
