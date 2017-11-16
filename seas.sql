@@ -5,14 +5,14 @@ USE SEAS;
 
 /* Tables */
 
-DROP TABLE IF EXISTS SOURCE;
-CREATE TABLE SOURCE (
+DROP TABLE IF EXISTS ORIGIN;
+CREATE TABLE ORIGIN (
 	waterID INT AUTO_INCREMENT,
 	waterName VARCHAR(30) NOT NULL,
 	location VARCHAR(30) NOT NULL, 
 	PRIMARY KEY(waterID)
 );
-ALTER table SOURCE AUTO_INCREMENT = 101;
+ALTER table ORIGIN AUTO_INCREMENT = 101;
 
 
 DROP TABLE IF EXISTS WATERBODY;
@@ -22,7 +22,7 @@ CREATE TABLE WATERBODY (
 	waterID INT,
 	minCredentials INT NOT NULL DEFAULT 1,
     PRIMARY KEY (waterbodyID),
-	FOREIGN KEY(waterID) REFERENCES Source(waterID) on delete cascade
+	FOREIGN KEY(waterID) REFERENCES ORIGIN(waterID) on delete cascade
 );
 ALTER table WATERBODY AUTO_INCREMENT = 201;
 
@@ -31,9 +31,9 @@ DROP TABLE IF EXISTS USER;
 CREATE TABLE USER (
 	userID INT AUTO_INCREMENT,
 	userName VARCHAR(30) NOT NULL,
-	password VARCHAR(30) NOT NULL,
+	pass VARCHAR(30) NOT NULL,
 	credentials INT NOT NULL DEFAULT 1,
-	type VARCHAR(10) NOT NULL DEFAULT 'user',
+	title VARCHAR(10) NOT NULL DEFAULT 'user',
 	PRIMARY KEY(userID)
 );
 ALTER table USER AUTO_INCREMENT = 1001;
@@ -146,22 +146,38 @@ BEGIN
 END; //
 DELIMITER ;
 
-
-
-
-
-
 /* User views average  rating for all waterbodies in a location */
 DROP PROCEDURE IF EXISTS avgRatingLocation;
 DELIMITER // 
 CREATE PROCEDURE avgRatingLocation(IN loc VARCHAR(30), OUT avg INT) 
 BEGIN	
 	SELECT avg(avgRating)
-	FROM Source JOIN Waterbody USING(waterID) JOIN Waterrating USING (waterbodyID)
+	FROM Origin JOIN Waterbody USING(waterID) JOIN Waterrating USING (waterbodyID)
 	GROUP BY location
 	HAVING location = loc; 
 END; //
 DELIMITER ;
+
+/* To store the user accounts into USER table based on the input name, input passwords */
+Drop procedure if exists createAccount;
+Delimiter //
+create procedure createAccount(in  inputName varchar(30), in inputPass varchar(30))
+begin
+	insert into USER values (null, inputName ,inputPass , 1, 'user' );
+end; //
+delimiter ;
+
+/* To get the correct user based on the inputName and inputPassword from USER if exists*/
+Drop procedure if exists userLogin;
+Delimiter //
+create procedure userLogin(in inputName varchar(30), in inputPass varchar(30), 
+	out userID int, out userName varchar(30))
+begin
+	select userID, userName
+	from user where inputName = userName and inputPass = pass;
+
+end; //
+delimiter ;
 
 
 
