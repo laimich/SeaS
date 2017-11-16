@@ -230,6 +230,30 @@ end; //
 delimiter //
 
 
+/* To view all revies given by every user for admin*/
+Drop procedure if exists adminViewReview;
+Delimiter //
+Create procedure adminViewReview()
+begin
+	SELECT userID, userName, waterbodyName, reviewDate, rating 
+	FROM User LEFT OUTER JOIN 
+		(SELECT userID, waterbodyName, reviewDate, rating 
+		FROM Review INNER JOIN Waterbody USING (waterbodyID)) as AllReviews
+		ON (userID);	
+end; //
+delimiter //
+
+
+/* System checks user credentials to waterbody credentials*/
+Drop procedure if exists checkCredentials;
+Delimiter //
+Create procedure checkCredentials(in inputUser int)
+begin
+	SELECT *
+	FROM Waterbody wb JOIN User u ON(wb.credentials <= u.credentials)
+	WHERE inputUser = userID;
+end; //
+delimiter //
 
 
 /* User views average  rating for all waterbodies in a location */
