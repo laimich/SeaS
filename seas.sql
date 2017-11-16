@@ -145,8 +145,14 @@ BEGIN
 END; //
 DELIMITER ;
 
-
-
+/* To store the user accounts into USER table based on the input name, input passwords */
+Drop procedure if exists createAccount;
+Delimiter //
+create procedure createAccount(in  inputName varchar(30), in inputPassword varchar(30))
+begin
+		insert into USER values (null, inputName ,inputPassword , 1, 'user' );
+end; //
+delimiter ;
 
 
 
