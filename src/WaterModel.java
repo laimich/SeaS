@@ -80,12 +80,16 @@ public class WaterModel {
 			cs = conn.prepareCall("{CALL userLogin(?, ?, ?, ?)}");
 			cs.setString(1, username);
 			cs.setString(2, password);
-			cs.registerOutParameter(3, Types.INTEGER);
-			cs.registerOutParameter(4, Types.INTEGER);
 			rs = cs.executeQuery();
 			
 			if(rs.next()) {
-				//currentUser = new User(cs.getInt(3), )
+				int ID = rs.getInt("userID");
+				String name = rs.getString("userName");
+				String pass = rs.getString("pass");
+				int cred = rs.getInt("credentials");
+				String title = rs.getString("title");
+				currentUser = new User(ID, name, pass, cred, title);
+				return true;
 			}
 		} 
 		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
@@ -98,6 +102,11 @@ public class WaterModel {
 			//end finally try
 		}//end try
 		return false;
+	}
+	
+	
+	public String getCurrentUserTitle() {
+		return currentUser.getTitle();
 	}
 
 }

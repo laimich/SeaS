@@ -81,12 +81,18 @@ public class LogInPage extends JFrame {
 					JOptionPane.showMessageDialog(null, "Invalid username/password combination");
 					return;
 				}
-				if(model.isAccountAvailable(username)) {
-					model.createAccount(username, password);
-					LogInPage login = new LogInPage(model);
-					dispose();
+				if(model.canLogin(username, password)) {
+					System.out.println(true);
+					String title = model.getCurrentUserTitle();
+					if(title.equals("admin")) {
+						AdminHomePage admin = new AdminHomePage(model);
+						dispose();
+					}
+					else if(title.equals("user")) {
+						UserHomePage admin = new UserHomePage(model);
+						dispose();
+					}
 				}
-				//check if login successfull, set current user
 				
 				//depend type of user, send to user or admin homepage
 				//dispose();
