@@ -135,6 +135,19 @@ DELIMITER ;
 
 /* Stored Procedures */
 
+/* To archive reviews that are older than the cutoff date */
+DROP PROCEDURE IF EXISTS archiveReviews;
+DELIMITER // 
+CREATE PROCEDURE archiveReviews(IN cutoff DATE)
+BEGIN	
+	INSERT INTO ARCHIVEREVIEW(SELECT * FROM REVIEW WHERE reviewDate < cutoff); 
+	DELETE FROM REVIEW WHERE reviewDate < cutoff; 
+END; //
+DELIMITER ;
+
+
+
+
 
 
 

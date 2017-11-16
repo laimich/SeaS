@@ -20,26 +20,26 @@ public class WaterbodyPage extends JFrame {
 	private WaterModel model;
 
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					WaterbodyPage frame = new WaterbodyPage();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					WaterbodyPage frame = new WaterbodyPage();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public WaterbodyPage() {
+	public WaterbodyPage(WaterModel model) {
 		setTitle("Search Waterbody");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 265, 315);
@@ -98,5 +98,6 @@ public class WaterbodyPage extends JFrame {
 		JLabel source = new JLabel("The Source");
 		source.setBounds(42, 141, 179, 16);
 		waterbodyPanel.add(source);
+		setVisible(true);
 	}
 }

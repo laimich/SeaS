@@ -17,26 +17,26 @@ public class AdminHomePage extends JFrame {
 	private WaterModel model;
 
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AdminHomePage frame = new AdminHomePage();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					AdminHomePage frame = new AdminHomePage();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public AdminHomePage() {
+	public AdminHomePage(WaterModel model) {
 		setTitle("Admin Homepage");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 404, 300);
@@ -68,6 +68,7 @@ public class AdminHomePage extends JFrame {
 		JButton btnAddWaterbody = new JButton("Add Waterbody");
 		btnAddWaterbody.setBounds(65, 194, 273, 29);
 		AdminMainPanel.add(btnAddWaterbody);
+		setVisible(true);
 	}
 
 }

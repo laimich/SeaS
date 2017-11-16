@@ -15,26 +15,26 @@ public class LocationPage extends JFrame {
 	private WaterModel model;
 
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LocationPage frame = new LocationPage();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					LocationPage frame = new LocationPage();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public LocationPage() {
+	public LocationPage(WaterModel model) {
 		setTitle("Search Location");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 265, 315);
@@ -70,5 +70,6 @@ public class LocationPage extends JFrame {
 		JLabel avgRating = new JLabel("Number");
 		avgRating.setBounds(135, 127, 61, 16);
 		contentPane.add(avgRating);
+		setVisible(true);
 	}
 }

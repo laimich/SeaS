@@ -16,26 +16,26 @@ public class UserHomePage extends JFrame {
 	private WaterModel model;
 
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserHomePage frame = new UserHomePage();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					UserHomePage frame = new UserHomePage();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public UserHomePage() {
+	public UserHomePage(WaterModel model) {
 		setTitle("User Homepage");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 389, 300);
@@ -83,5 +83,6 @@ public class UserHomePage extends JFrame {
 		JLabel revNumLabel = new JLabel("XXXX");
 		revNumLabel.setBounds(230, 186, 81, 16);
 		homePagePanel.add(revNumLabel);
+		setVisible(true);
 	}
 }
