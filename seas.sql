@@ -159,12 +159,10 @@ delimiter ;
 /* To get the correct user based on the inputName and inputPassword from USER if exists*/
 Drop procedure if exists userLogin;
 Delimiter //
-create procedure userLogin(in inputName varchar(30), in inputPass varchar(30), 
-	out userID int, out userName varchar(30))
+create procedure userLogin(in inputName varchar(30), in inputPass varchar(30))
 begin
-	select userID, userName
+	select *
 	from user where inputName = userName and inputPass = pass;
-
 end; //
 delimiter ;
 
@@ -229,7 +227,7 @@ DELIMITER ;
 /* system updates user credentials */
 DROP PROCEDURE IF EXISTS updateCredentials
 DELIMITER //
-CREATE PROCEDURE updateCredentials(IN newCredential, targetUserID)
+CREATE PROCEDURE updateCredentials(IN newCredential int,  in targetUserID int)
 BEGIN
 	UPDATE User
 	SET credentials = newCredential
@@ -239,8 +237,8 @@ DELIMITER ;
 	select waterbodyID from Waterbody where searchName = waterbodyName
 		union 
 	select waterID from origin where searchName = location;
-end; //
-delimiter ;
+end //
+delimiter //
 
 
 /* To view information for a waterbody search */
