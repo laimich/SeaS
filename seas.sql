@@ -1,3 +1,4 @@
+set sql_mode='';
 DROP DATABASE IF EXISTS SEAS;
 CREATE DATABASE SEAS;
 USE SEAS; 
@@ -150,6 +151,17 @@ DELIMITER ;
 
 
 
+/* User views average  rating for all waterbodies in a location */
+DROP PROCEDURE IF EXISTS avgRatingLocation;
+DELIMITER // 
+CREATE PROCEDURE avgRatingLocation(IN loc VARCHAR(30), OUT avg INT) 
+BEGIN	
+	SELECT avg(avgRating)
+	FROM Source JOIN Waterbody USING(waterID) JOIN Waterrating USING (waterbodyID)
+	GROUP BY location
+	HAVING location = loc; 
+END; //
+DELIMITER ;
 
 
 
