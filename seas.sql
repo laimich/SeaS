@@ -150,12 +150,22 @@ Drop procedure if exists createAccount;
 Delimiter //
 create procedure createAccount(in  inputName varchar(30), in inputPassword varchar(30))
 begin
-		insert into USER values (null, inputName ,inputPassword , 1, 'user' );
+	insert into USER values (null, inputName ,inputPassword , 1, 'user' );
 end; //
 delimiter ;
 
 
+/* To get the correct user based on the inputName and inputPassword from USER if exists*/
+Drop procedure if exists userLogin;
+Delimiter //
+create procedure userLogin(in inputName varchar(30), in inputPassword varchar(30), 
+	out userID int, out userName varchar(30))
+begin
+	select userID, userName
+	from user where inputName = userName and inputPassword = passowrd;
 
+end; //
+delimiter ;
 
 
 
