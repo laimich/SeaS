@@ -218,6 +218,19 @@ end; //
 delimiter //
 
 
+/* To view number of reviews that user have given */
+Drop procedure if exists viewNumReviews;
+Delimiter //
+create procedure viewNumReviews(in inputUser int, out numViews int)
+begin
+	SELECT count(rating)
+	FROM User JOIN Review
+	WHERE inputUser = userID;
+end; //
+delimiter //
+
+
+
 
 /* User views average  rating for all waterbodies in a location */
 DROP PROCEDURE IF EXISTS avgRatingLocation;
