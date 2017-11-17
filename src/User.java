@@ -3,25 +3,25 @@ public class User {
 
 	private int userID;
 	private String userName;
-	private String password;
+	private String pass;
 	private int credentials; //lower = less authority, higher = more authority
-	private String type;
+	private String title;
 	
 	public User() {
 		userID = 1000;
 		userName = "";
-		password = "";
+		pass = "";
 		credentials = 0;
-		type = "user";
+		title = "user";
 		
 	}
 	
 	public User(int id, String un, String pw, int cred, String t) {
 		userID = id;
 		userName = un;
-		password = pw;
+		pass = pw;
 		credentials = cred;
-		type = t;
+		title = t;
 	}
 	
 	public int getID() { 
@@ -37,12 +37,12 @@ public class User {
 	}
 	
 	public boolean checkPassword(String check) {
-		if(check.equals(password)) return true;
+		if(check.equals(pass)) return true;
 		return false;
 	}
 	
 	public void setPassword(String pw) { 
-		password = pw; 
+		pass = pw; 
 	}
 	
 	public int getCredentials() {
@@ -53,12 +53,12 @@ public class User {
 		credentials = cred;
 	}
 	
-	public String getType() {
-		return type;
+	public String getTitle() {
+		return title;
 	}
 	
-	public void setType(User admin, String t) {
-		if(admin.getType().equals("admin")) type = t;
-		else type = "user";
+	public void setTitle(User admin, String t) {
+		if(admin.getTitle().equals("admin")) title = t;
+		else title = "user";
 	}
 }

@@ -159,12 +159,10 @@ delimiter ;
 /* To get the correct user based on the inputName and inputPassword from USER if exists*/
 Drop procedure if exists userLogin;
 Delimiter //
-create procedure userLogin(in inputName varchar(30), in inputPass varchar(30), 
-	out userID int, out userName varchar(30))
+create procedure userLogin(in inputName varchar(30), in inputPass varchar(30))
 begin
-	select userID, userName
+	select *
 	from user where inputName = userName and inputPass = pass;
-
 end; //
 delimiter ;
 
@@ -173,7 +171,9 @@ Drop procedure if exists searchWaterbodyOrLocation;
 Delimiter //
 create procedure searchWaterBodyOrLocation(in searchName varchar(30), out desiredID int)
 begin
-		insert into USER values (null, inputName ,inputPassword , 1, 'user' );
+		select waterbodyID from Waterbody where searchName = waterbodyName
+		union 
+	select waterID from origin where searchName = location;
 end//
 delimiter ;
 
@@ -185,7 +185,7 @@ CREATE PROCEDURE updateWaterbody(IN inputCredentials INT, IN searchName VARCHAR(
 BEGIN
 	UPDATE Waterbody
 	SET minCredentials = inputCredentials
-	WHERE waterbodyName = searchName
+	WHERE waterbodyName = searchName;
 END//
 DELIMITER ;
 
@@ -197,7 +197,7 @@ BEGIN
 	DELETE FROM Review
 	WHERE searchName = (SELECT waterbodyName FROM Waterbody) AND
 		(inputUserID, inputDate, inputRating) IN 
-			(SELECT userID, reviewDate, rating FROM Review)
+			(SELECT userID, reviewDate, rating FROM Review);
 END//
 DELIMITER ;
 
@@ -227,20 +227,16 @@ END//
 DELIMITER ;
 
 /* system updates user credentials */
-DROP PROCEDURE IF EXISTS updateCredentials
+DROP PROCEDURE IF EXISTS updateCredentials;
 DELIMITER //
-CREATE PROCEDURE updateCredentials(IN newCredential, targetUserID)
+CREATE PROCEDURE updateCredentials(IN newCredential int,  in targetUserID int)
 BEGIN
 	UPDATE User
 	SET credentials = newCredential
-	WHERE user.userID = targetUserID;
-END//
+	WHERE User.userID = targetUserID; 
+END; //
 DELIMITER ;
-	select waterbodyID from Waterbody where searchName = waterbodyName
-		union 
-	select waterID from origin where searchName = location;
-end; //
-delimiter ;
+	
 
 
 /* To view information for a waterbody search */
@@ -330,7 +326,6 @@ BEGIN
 	HAVING location = loc; 
 END; //
 DELIMITER ;
-
 /* Load Data */
 /* LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/books.txt' INTO TABLE BOOK;
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/users.txt' INTO TABLE USER;

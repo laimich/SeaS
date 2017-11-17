@@ -10,12 +10,14 @@ public class WaterModel {
 	static final String USER = "root";
 	static final String PASS = "1234";
 
+	private User currentUser;
 	private Connection conn;
 	private Statement stmt;
 	private PreparedStatement pstmt;
 	private CallableStatement cs;
 
 	public WaterModel() {
+		currentUser = null;
 		conn = null;
 		stmt = null;
 		pstmt = null;
@@ -23,7 +25,8 @@ public class WaterModel {
 	}
 
 	public void createAccount(String username, String password) {
-		String sql = "";
+		conn = null;
+		cs = null;
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -47,6 +50,8 @@ public class WaterModel {
 	public boolean isAccountAvailable(String checkName) {
 		ResultSet rs = null;
 		String sql = "";
+		conn = null;
+		pstmt = null;
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -70,6 +75,7 @@ public class WaterModel {
 		return false;
 	}
 	
+<<<<<<< HEAD
 	public String[] getUserInfo(int inputUserID){
 		String[] info = new String[3];
 		ResultSet userRs;
@@ -93,6 +99,34 @@ public class WaterModel {
 			}
 			
 		} catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+=======
+	public boolean canLogin(String username, String password) {
+		ResultSet rs = null;
+		conn = null;
+		cs = null;
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			cs = conn.prepareCall("{CALL userLogin(?, ?)}");
+			cs.setString(1, username);
+			cs.setString(2, password);
+			rs = cs.executeQuery();
+			System.out.println(rs.getFetchSize());
+			if(!rs.next()) System.out.println(username + password + false);
+			if(rs.next()) {
+				System.out.println(true);
+				int ID = rs.getInt("userID");
+				String name = rs.getString("userName");
+				String pass = rs.getString("pass");
+				int cred = rs.getInt("credentials");
+				String title = rs.getString("title");
+				currentUser = new User(ID, name, pass, cred, title);
+				return true;
+			}
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+>>>>>>> bb67f583678936976d2f1612acb0a045388b5ce2
 		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
 		finally{ //finally block used to close resources
 			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
@@ -101,7 +135,16 @@ public class WaterModel {
 			catch(SQLException se){ se.printStackTrace(); }
 			//end finally try
 		}//end try
+<<<<<<< HEAD
 		return info;
+=======
+		return false;
+	}
+	
+	
+	public String getCurrentUserTitle() {
+		return currentUser.getTitle();
+>>>>>>> bb67f583678936976d2f1612acb0a045388b5ce2
 	}
 
 }

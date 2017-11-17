@@ -1,17 +1,17 @@
 
-public class Source {
+public class Origin {
 
 	private int waterID;
 	private String waterName;
 	private String location;
 	
-	public Source() {
+	public Origin() {
 		waterID = 100;
 		waterName = "";
 		location = "";
 	}
 	
-	public Source(int id, String name, String loc) {
+	public Origin(int id, String name, String loc) {
 		waterID = id;
 		waterName = name;
 		location = loc;
