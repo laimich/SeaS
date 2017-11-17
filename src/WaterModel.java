@@ -75,7 +75,6 @@ public class WaterModel {
 		return false;
 	}
 	
-<<<<<<< HEAD
 	public String[] getUserInfo(int inputUserID){
 		String[] info = new String[3];
 		ResultSet userRs;
@@ -99,7 +98,17 @@ public class WaterModel {
 			}
 			
 		} catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
-=======
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+		return info;
+	}
+		
 	public boolean canLogin(String username, String password) {
 		ResultSet rs = null;
 		conn = null;
@@ -126,7 +135,6 @@ public class WaterModel {
 			}
 		} 
 		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
->>>>>>> bb67f583678936976d2f1612acb0a045388b5ce2
 		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
 		finally{ //finally block used to close resources
 			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
@@ -135,16 +143,13 @@ public class WaterModel {
 			catch(SQLException se){ se.printStackTrace(); }
 			//end finally try
 		}//end try
-<<<<<<< HEAD
-		return info;
-=======
+
 		return false;
 	}
 	
 	
 	public String getCurrentUserTitle() {
 		return currentUser.getTitle();
->>>>>>> bb67f583678936976d2f1612acb0a045388b5ce2
 	}
 
 }
