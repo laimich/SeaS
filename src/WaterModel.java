@@ -8,7 +8,7 @@ public class WaterModel {
 
 	//  Database credentials
 	static final String USER = "root";
-	static final String PASS = "newpass";
+	static final String PASS = "1234";
 
 	private Connection conn;
 	private Statement stmt;
@@ -68,6 +68,40 @@ public class WaterModel {
 			//end finally try
 		}//end try
 		return false;
+	}
+	
+	public String[] getUserInfo(int inputUserID){
+		String[] info = new String[3];
+		ResultSet userRs;
+		try {
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			
+			String sql = "SELECT userName, credentials FROM User WHERE userID = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, inputUserID);
+			userRs = pstmt.executeQuery();
+			info[0] = userRs.getString("userName");
+			info[1] = userRs.getInt("credentials") + "";
+			
+			cs = conn.prepareCall("{CALL vewNumReviews(?, ?)}");
+			cs.setInt(1, inputUserID);
+			cs.registerOutParameter(2, Types.INTEGER);
+			if(pstmt.execute()){
+				info[2] = cs.getInt("numViews") + "";
+			} else {
+				info[2] = "0";
+			}
+			
+		} catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+		return info;
 	}
 
 }
