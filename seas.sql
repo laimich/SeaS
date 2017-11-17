@@ -227,14 +227,14 @@ END//
 DELIMITER ;
 
 /* system updates user credentials */
-DROP PROCEDURE IF EXISTS updateCredentials
+DROP PROCEDURE IF EXISTS updateCredentials;
 DELIMITER //
 CREATE PROCEDURE updateCredentials(IN newCredential int,  in targetUserID int)
 BEGIN
 	UPDATE User
 	SET credentials = newCredential
-	WHERE user.userID = targetUserID;
-END//
+	WHERE User.userID = targetUserID; 
+END; //
 DELIMITER ;
 	
 

@@ -25,6 +25,8 @@ public class WaterModel {
 	}
 
 	public void createAccount(String username, String password) {
+		conn = null;
+		cs = null;
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -48,6 +50,8 @@ public class WaterModel {
 	public boolean isAccountAvailable(String checkName) {
 		ResultSet rs = null;
 		String sql = "";
+		conn = null;
+		pstmt = null;
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -73,16 +77,20 @@ public class WaterModel {
 	
 	public boolean canLogin(String username, String password) {
 		ResultSet rs = null;
+		conn = null;
+		cs = null;
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			//execute query
-			cs = conn.prepareCall("{CALL userLogin(?, ?, ?, ?)}");
+			cs = conn.prepareCall("{CALL userLogin(?, ?)}");
 			cs.setString(1, username);
 			cs.setString(2, password);
 			rs = cs.executeQuery();
-			
+			System.out.println(rs.getFetchSize());
+			if(!rs.next()) System.out.println(username + password + false);
 			if(rs.next()) {
+				System.out.println(true);
 				int ID = rs.getInt("userID");
 				String name = rs.getString("userName");
 				String pass = rs.getString("pass");
