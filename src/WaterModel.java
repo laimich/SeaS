@@ -122,7 +122,7 @@ public class WaterModel {
 			cs.setString(2, password);
 			rs = cs.executeQuery();
 			System.out.println(rs.getFetchSize());
-			if(!rs.next()) System.out.println(username + password + false);
+			//if(!rs.next()) System.out.println(username + password + false);
 			if(rs.next()) {
 				System.out.println(true);
 				int ID = rs.getInt("userID");
@@ -132,6 +132,8 @@ public class WaterModel {
 				String title = rs.getString("title");
 				currentUser = new User(ID, name, pass, cred, title);
 				return true;
+			}else{
+				System.out.println(username + password + false);
 			}
 		} 
 		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
