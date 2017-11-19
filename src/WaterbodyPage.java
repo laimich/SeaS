@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.TreeMap;
 
 import javax.swing.JButton;
 
@@ -42,41 +43,43 @@ public class WaterbodyPage extends JFrame {
 	public WaterbodyPage(WaterModel model) {
 		setTitle("Search Waterbody");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 265, 315);
+		setBounds(100, 100, 265, 350);
 		waterbodyPanel = new JPanel();
 		waterbodyPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(waterbodyPanel);
 		waterbodyPanel.setLayout(null);
 		
-		JLabel waterbNameLabel = new JLabel("Waterbody Name:");
+		TreeMap<String, String> search = model.getWaterbodySearch();
+		
+		JLabel waterbNameLabel = new JLabel("Waterbody: ");
 		waterbNameLabel.setBounds(42, 35, 120, 16);
 		waterbodyPanel.add(waterbNameLabel);
 		
-		JLabel locLabel = new JLabel("Location:");
+		JLabel locLabel = new JLabel("Location: ");
 		locLabel.setBounds(42, 88, 61, 16);
 		waterbodyPanel.add(locLabel);
 		
-		JLabel sourceLabel = new JLabel("Source/WaterName");
-		sourceLabel.setBounds(42, 116, 120, 16);
-		waterbodyPanel.add(sourceLabel);
+		JLabel originLabel = new JLabel("Origin: ");
+		originLabel.setBounds(42, 146, 120, 16);
+		waterbodyPanel.add(originLabel);
 		
-		JLabel rateLabel = new JLabel("Rating: #");
-		rateLabel.setBounds(42, 191, 61, 16);
+		JLabel rateLabel = new JLabel("Rating (# given): ");
+		rateLabel.setBounds(42, 205, 120, 16);
 		waterbodyPanel.add(rateLabel);
 		
-		JLabel avgLabel = new JLabel("#");
+		JLabel avgLabel = new JLabel(search.get("avgRating"));
 		//avgLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		avgLabel.setBounds(42, 211, 41, 28);
+		avgLabel.setBounds(42, 230, 41, 28);
 		waterbodyPanel.add(avgLabel);
 		
-		JLabel totalNumLabel = new JLabel("(#)");
+		JLabel totalNumLabel = new JLabel("( " + search.get("numRating") + " )");
 		//totalNumLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		totalNumLabel.setBounds(60, 211, 41, 28);
+		totalNumLabel.setBounds(60, 230, 41, 28);
 		waterbodyPanel.add(totalNumLabel);
 		
 		JButton btnNewButton = new JButton("+");
 		btnNewButton.setFont(new Font("plain", Font.PLAIN, 20));
-		btnNewButton.setBounds(165, 200, 50, 40);
+		btnNewButton.setBounds(165, 235, 50, 40);
 		btnNewButton.setBackground(null);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
@@ -87,17 +90,17 @@ public class WaterbodyPage extends JFrame {
 		});
 		waterbodyPanel.add(btnNewButton);
 		
-		JLabel waterName = new JLabel("Name");
-		waterName.setBounds(42, 60, 120, 16);
+		JLabel waterName = new JLabel(search.get("waterbodyName"));
+		waterName.setBounds(127, 60, 120, 16);
 		waterbodyPanel.add(waterName);
 		
-		JLabel locationName = new JLabel("Name");
-		locationName.setBounds(127, 88, 97, 16);
+		JLabel locationName = new JLabel(search.get("location"));
+		locationName.setBounds(127, 113, 97, 16);
 		waterbodyPanel.add(locationName);
 		
-		JLabel source = new JLabel("The Source");
-		source.setBounds(42, 141, 179, 16);
-		waterbodyPanel.add(source);
+		JLabel origin = new JLabel(search.get("waterName"));
+		origin.setBounds(127, 170, 179, 16);
+		waterbodyPanel.add(origin);
 		setVisible(true);
 	}
 }

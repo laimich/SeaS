@@ -1,16 +1,20 @@
 import java.sql.*;
 import java.sql.DriverManager;
+import java.util.TreeMap;
 
 public class WaterModel {
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	static final String DB_URL = "jdbc:mysql://localhost:3306/seas?autoReconnect=true&useSSL=false";
-
+	static final String DB_URL = "jdbc:mysql://localhost:3306/seas";
+//?autoReconnect=true&useSSL=false
 	//  Database credentials
 	static final String USER = "root";
-	static final String PASS = "1234";
+	static final String PASS = "newpass";
 
 	private User currentUser;
+	private int searchID;
+	private String searchType;
+	
 	private Connection conn;
 	private Statement stmt;
 	private PreparedStatement pstmt;
@@ -22,6 +26,7 @@ public class WaterModel {
 		stmt = null;
 		pstmt = null;
 		cs = null;
+		  											 
 	}
 
 	public void createAccount(String username, String password) {
@@ -75,28 +80,28 @@ public class WaterModel {
 		return false;
 	}
 	
-	public String[] getUserInfo(int inputUserID){
+	public String[] getUserHomeInfo(){
+		//0 = userName, 1 = credentials, 2 = num reviews
 		String[] info = new String[3];
 		ResultSet userRs;
 		try {
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			
-			String sql = "SELECT userName, credentials FROM User WHERE userID = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, inputUserID);
-			userRs = pstmt.executeQuery();
-			info[0] = userRs.getString("userName");
-			info[1] = userRs.getInt("credentials") + "";
+			//set current user's userName
+			info[0] = currentUser.getName();
+			//set current user's credentials
+			info[1] = currentUser.getCredentials() + "";
 			
-			cs = conn.prepareCall("{CALL vewNumReviews(?, ?)}");
-			cs.setInt(1, inputUserID);
-			cs.registerOutParameter(2, Types.INTEGER);
-			if(pstmt.execute()){
-				info[2] = cs.getInt("numViews") + "";
+			//execute query for current user's num reviews given
+			cs = conn.prepareCall("{CALL viewNumReviews(?)}");
+			cs.setInt(1, currentUser.getID());
+			if(cs.execute()){
+				userRs = cs.getResultSet();
+				userRs.next();
+				info[2] = userRs.getInt(1) + "";
 			} else {
 				info[2] = "0";
 			}
-			
 		} catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
 		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
 		finally{ //finally block used to close resources
@@ -121,10 +126,7 @@ public class WaterModel {
 			cs.setString(1, username);
 			cs.setString(2, password);
 			rs = cs.executeQuery();
-			System.out.println(rs.getFetchSize());
-			//if(!rs.next()) System.out.println(username + password + false);
 			if(rs.next()) {
-				System.out.println(true);
 				int ID = rs.getInt("userID");
 				String name = rs.getString("userName");
 				String pass = rs.getString("pass");
@@ -133,7 +135,7 @@ public class WaterModel {
 				currentUser = new User(ID, name, pass, cred, title);
 				return true;
 			}else{
-				System.out.println(username + password + false);
+				//...
 			}
 		} 
 		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
@@ -149,9 +151,81 @@ public class WaterModel {
 		return false;
 	}
 	
+	public int getSearchID(String name) {
+		ResultSet rs = null;
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			cs = conn.prepareCall("{CALL searchWaterBodyOrLocation(?)}");
+			cs.setString(1, name);
+			if(cs.execute()) {
+				rs = cs.getResultSet();
+				rs.next();
+				//set search ID
+				searchID = rs.getInt(1);
+				//set search type
+				searchType = rs.getString(2);
+				return searchID;
+			}
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+		
+		return 0;
+	}
+	
+	public TreeMap<String, String> getWaterbodySearch() {
+		ResultSet rs = null;
+		TreeMap<String, String> searchResults = new TreeMap<String, String>();
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			cs = conn.prepareCall("{CALL viewInfo(?)}");
+			cs.setInt(1, searchID);
+			if(cs.execute()) {
+				rs = cs.getResultSet();
+				rs.next();
+				
+				//save all search info into treemap
+				searchResults.put("location", rs.getString(1));
+				searchResults.put("waterName", rs.getString(2));
+				searchResults.put("waterbodyName", rs.getString(3));
+				searchResults.put("avgRating", rs.getInt(4) + "");
+				String num = rs.getInt(5) + "";
+				if(num.equals(null)) num = "No reviews";
+				searchResults.put("numRating", num);
+				return searchResults;
+			}
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+		
+		return null;
+	}
+	
 	
 	public String getCurrentUserTitle() {
 		return currentUser.getTitle();
+	}
+	
+	public String getSearchType() {
+		return searchType;
 	}
 
 }

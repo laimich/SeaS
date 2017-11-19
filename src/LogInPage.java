@@ -82,7 +82,6 @@ public class LogInPage extends JFrame {
 					return;
 				}
 				if(model.canLogin(username, password)) {
-					System.out.println(true);
 					String title = model.getCurrentUserTitle();
 					if(title.equals("admin")) {
 						AdminHomePage admin = new AdminHomePage(model);
@@ -93,9 +92,6 @@ public class LogInPage extends JFrame {
 						dispose();
 					}
 				}
-				
-				//depend type of user, send to user or admin homepage
-				//dispose();
 			}
 			
 		});
