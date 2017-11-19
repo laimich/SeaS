@@ -86,7 +86,8 @@ BEGIN
 	UPDATE WaterRating SET numRating = numRating + 1 WHERE waterbodyID = New.waterbodyID; 
     UPDATE WaterRating SET lastUpdated = New.reviewDate WHERE waterbodyID = New.waterbodyID; 
     UPDATE WaterRating SET avgRating = 
-        (SELECT avg(rating) FROM Review GROUP BY waterbodyID HAVING waterbodyID = New.waterbodyID); 
+        (SELECT avg(rating) FROM Review GROUP BY waterbodyID HAVING waterbodyID = New.waterbodyID)
+		WHERE waterbodyID = New.waterbodyID; 
 END;
 //
 DELIMITER ;
@@ -256,11 +257,11 @@ delimiter //
 /* To view list of waterbodies for a location search */
 Drop procedure if exists viewWaterbodiesFromLocation;
 Delimiter //
-create procedure viewWaterbodiesFromLocation(in userSearchLocation varchar(30))
+create procedure viewWaterbodiesFromLocation(in userSearchID varchar(30))
 begin
 	SELECT waterName, waterbodyName
 	FROM Origin JOIN Waterbody USING(waterID)
-	WHERE userSeachLocation = location;
+	WHERE Origin.waterID = userSearchID;
 end; //
 delimiter //
 
@@ -282,8 +283,8 @@ Delimiter //
 create procedure viewNumReviews(in inputUser int)
 begin
 	SELECT count(rating)
-	FROM User JOIN Review
-	WHERE inputUser = User.userID;
+	FROM Review
+	WHERE inputUser = userID;
 end; //
 delimiter //
 
@@ -317,9 +318,9 @@ delimiter //
 /* User views average rating for all waterbodies in a location */
 DROP PROCEDURE IF EXISTS avgRatingLocation;
 DELIMITER // 
-CREATE PROCEDURE avgRatingLocation(IN loc VARCHAR(30), OUT avg INT) 
+CREATE PROCEDURE avgRatingLocation(IN loc VARCHAR(30)) 
 BEGIN	
-	SELECT avg(avgRating) INTO avg
+	SELECT avg(avgRating)
 	FROM Origin JOIN Waterbody USING(waterID) JOIN Waterrating USING (waterbodyID)
 	GROUP BY location
 	HAVING location = loc; 
