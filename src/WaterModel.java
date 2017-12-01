@@ -402,6 +402,8 @@ public class WaterModel {
 			cs2.setInt(1, currentUser.getID());
 			cs2.setInt(2, searchID);
 			cs2.setInt(3, reviewNum);
+			cs.execute();
+			cs2.execute();
 			
 			return true;
 		} 
