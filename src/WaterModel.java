@@ -283,7 +283,86 @@ public class WaterModel {
 
 		return null;
 	}
+	
+	public boolean doesOriginExist(String originName) {
+		ResultSet rs = null;
+		String sql = "";
+		conn = null;
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			sql = "SELECT * FROM Origin WHERE waterName = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, originName);
+			rs = pstmt.executeQuery();
+			//if origin doesn't exist, return false
+			if(!rs.next()) return false;
+			return true;
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+		return false;
+	}
+	
+	public void addWaterbody(String waterbodyName, String originName, int minCred) {
+		ResultSet rs = null;
+		conn = null;
+		cs = null;
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			cs = conn.prepareCall("{CALL addWaterbody(?, ?, ?)}");
+			cs.setString(1, waterbodyName);
+			cs.setString(2, originName);
+			cs.setInt(3, minCred);
+			cs.execute();
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+	}
 
+	
+	public void updateArchive(Date currentDate) {
+		//call archive procedure @ every launch
+		//cutoff date is 3 years prior current date
+		int cutOffYear = currentDate.getYear() - 3;
+		Date cutOff = currentDate;
+		cutOff.setYear(cutOffYear);
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			cs = conn.prepareCall("{CALL archiveReviews(?)}");
+			cs.setDate(1, cutOff);
+			cs.execute();
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+	}
+	
 
 	public String getCurrentUserTitle() {
 		return currentUser.getTitle();
