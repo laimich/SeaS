@@ -326,6 +326,9 @@ BEGIN
 	HAVING location = loc; 
 END; //
 DELIMITER ;
+
+
+
 /* Load Data */
 /* LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/books.txt' INTO TABLE BOOK;
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/users.txt' INTO TABLE USER;
