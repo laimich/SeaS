@@ -375,5 +375,47 @@ public class WaterModel {
 	public String getSearchName() {
 		return searchName;
 	}
+	
+	
+	
+	public boolean checkCredandInputReview(int reviewNum) 
+				throws SQLException{
+		currentUser.getID();
+		
+		
+		String queryDropCred = "Drop procedure if exists checkCredentials";
+		String queryDropAddRate = "Drop procedure if exists addRating";
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			
+			Statement stmtDrop = conn.createStatement();
+			stmtDrop.execute(queryDropCred);
+			
+			CallableStatement cs = conn.prepareCall("{CALL checkCredentials(?)}");
+			cs.setInt(1, currentUser.getID());
+			
+			
+			stmtDrop.execute(queryDropAddRate);
+			CallableStatement cs2 = conn.prepareCall("{CALL addRating(?,?,?)}");
+			cs2.setInt(1, currentUser.getID());
+			cs2.setInt(2, searchID);
+			cs2.setInt(3, reviewNum);
+			
+			return true;
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+		
+		return false;
+	}
 
 }
