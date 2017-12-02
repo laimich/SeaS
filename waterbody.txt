@@ -1,0 +1,54 @@
+	109055022840,Mounton Bk - source to R Severn Estuary
+	109055029690,Garren Bk - conf Gamber Bk to conf R Wye
+	109055029690,Garren Bk - conf Gamber Bk to conf R Wye
+	109055029700,Walford Bk - source to conf R Wye
+	109055029710,Garren Bk - source to conf Gamber Bk
+	109055029730,Rudhall Bk - source to conf R Wye
+	109055036580,Stretford Bk - source to conf R Arrow
+	109055036600,Gladestry Bk - source to conf R Arrow
+	109055036610,Honeylake Bk - source to conf Little Arrow
+	109055036620,Arrow - conf Gladestry Bk to conf Gilwern Bk
+	109055036620,Arrow - conf Gladestry Bk to conf Gilwern Bk
+	109055036630,Tippets Bk - source to conf Stretford Bk
+	109055036650,Tarrington Bk - source to conf R Frome
+	109055036660,Lodon - source to conf R Frome
+	109055036670,Pentaloe Bk - source to conf R Wye
+	109055036710,Withington Marsh Bk - source to conf R Little Lugg
+	109055036720,Little Lugg - source to conf R Lugg
+	109055036740,Bodenham Bk - source to conf R Lugg
+	109055036750,Wellington Bk - source to conf R Lugg
+	109055036771,Humber Bk - source to conf R Lugg
+	109055036780,Frome - conf Tedstone Bk to conf R Lugg
+	109055036780,Frome - conf Tedstone Bk to conf R Lugg
+	109055036790,Lugg - conf R Arrow to conf R Wye
+	109055036790,Lugg - conf R Arrow to conf R Wye
+	109055036880,Gamber Bk - source to conf Garren Bk
+	109055036890,Wriggle Bk - source to conf R Wye
+	109055036930,Norton Bk - source to conf R Wye
+	109055036940,How Caple Bk - source to conf R Wye
+	109055036960,Cage Bk - source to conf R Wye
+	109055037000,Preston Bk - source to conf R Wye
+	109055037040,Yazor Bk - source to conf R Wye
+	109055037070,Willersley Bk - source to conf R Wye
+	109055037100,Kinnersley Bk - source to conf R Wye
+	109055037111,Wye - conf Walford Bk to Bigsweir Br
+	109055037111,Wye - conf Walford Bk to Bigsweir Br
+	109055037112,Wye - Hampton Bishop to conf Kerne Br
+	109055037112,Wye - Hampton Bishop to conf Kerne Br
+	109055037113,Wye - Bredwardine Br to Hampton Bishop
+	109055037113,Wye - Bredwardine Br to Hampton Bishop
+	109055037120,Letton Lake Bk - source to conf R Wye
+	109055037180,Moreton Bk - source to conf R Lugg
+	109055041820,Curl Bk - source to conf R Arrow
+	109055041840,Arrow - conf Gilwern Bk to conf R Lugg
+	109055041840,Arrow - conf Gilwern Bk to conf R Lugg
+	109055041850,Frome - source to conf Tedstone Bk
+	109055041860,Tedstone Bk - source to conf R Frome
+	109055041930,Hindwell Bk - conf Knobley Bk to conf R Lugg
+	109055041930,Hindwell Bk - conf Knobley Bk to conf R Lugg
+	109055041940,Pinsley Bk - source to conf R Lugg
+	109055041950,Cheaton Bk - source to conf R Lugg
+	109055042000,Ridgemoor Bk - source to conf R Lugg
+	109055042030,Lugg - conf Norton Bk to conf R Arrow
+	109055042030,Lugg - conf Norton Bk to conf R Arrow
+	109055042060,Lime Bk - source to conf R Lugg

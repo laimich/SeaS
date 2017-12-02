@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 public class WaterModel {
@@ -10,7 +11,7 @@ public class WaterModel {
 
 	//  Database credentials
 	static final String USER = "root";
-	static final String PASS = "newpass";
+	static final String PASS = "1234"; //"newpass";
 
 	private User currentUser;
 	private int searchID;
@@ -296,5 +297,6 @@ public class WaterModel {
 	public String getSearchName() {
 		return searchName;
 	}
+	
 
 }

@@ -330,3 +330,7 @@ DELIMITER ;
 /* LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/books.txt' INTO TABLE BOOK;
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/users.txt' INTO TABLE USER;
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/loans.txt' INTO TABLE LOAN; */
+LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/origin.txt' INTO TABLE ORIGIN 
+	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
+LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/waterbody.txt' INTO TABLE waterbody 
+	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';

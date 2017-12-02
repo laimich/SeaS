@@ -1,0 +1,54 @@
+	,Mounton Bk,R Severn Estuary
+	,Garren Bk,Gamber Bk
+	,Garren Bk,R Wye
+	,Walford Bk,R Wye
+	,Garren Bk,Gamber Bk
+	,Rudhall Bk,R Wye
+	,Stretford Bk,R Arrow
+	,Gladestry Bk,R Arrow
+	,Honeylake Bk,Little Arrow
+	,Arrow,Gladestry Bk
+	,Arrow,Gilwern Bk
+	,Tippets Bk,Stretford Bk
+	,Tarrington Bk,R Frome
+	,Lodon,R Frome
+	,Pentaloe Bk,R Wye
+	,Withington Marsh Bk,R Little Lugg
+	,Little Lugg,R Lugg
+	,Bodenham Bk,R Lugg
+	,Wellington Bk,R Lugg
+	,Humber Bk,R Lugg
+	,Frome,Tedstone Bk
+	,Frome,R Lugg
+	,Lugg,R Arrow
+	,Lugg,R Wye
+	,Gamber Bk,Garren Bk
+	,Wriggle Bk,R Wye
+	,Norton Bk,R Wye
+	,How Caple Bk,R Wye
+	,Cage Bk,R Wye
+	,Preston Bk,R Wye
+	,Yazor Bk,R Wye
+	,Willersley Bk,R Wye
+	,Kinnersley Bk,R Wye
+	,Wye,Walford Bk
+	,Wye,Bigsweir Br
+	,Wye,on Bishop
+	,Wye,Kerne Br
+	,Wye,Bredwardine Br
+	,Wye,Hampton Bishop
+	,Letton Lake Bk,R Wye
+	,Moreton Bk,R Lugg
+	,Curl Bk,R Arrow
+	,Arrow,Gilwern Bk
+	,Arrow,R Lugg
+	,Frome,Tedstone Bk
+	,Tedstone Bk,R Frome
+	,Hindwell Bk,Knobley Bk
+	,Hindwell Bk,R Lugg
+	,Pinsley Bk,R Lugg
+	,Cheaton Bk,R Lugg
+	,Ridgemoor Bk,R Lugg
+	,Lugg,Norton Bk
+	,Lugg,R Arrow
+	,Lime Bk,R Lugg
