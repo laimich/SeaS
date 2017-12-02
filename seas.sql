@@ -220,11 +220,11 @@ DELIMITER ;
 /* Admin adds a new waterbody */
 DROP PROCEDURE IF EXISTS addWaterbody;
 DELIMITER //
-CREATE PROCEDURE addWaterbody(IN inputWaterbodyName VARCHAR(30), IN inputMinCredentials INT)
+CREATE PROCEDURE addWaterbody(IN inputWaterbodyName VARCHAR(30), IN inputOrigin VARCHAR(30), IN inputMinCredentials INT)
 BEGIN 
 	INSERT INTO waterbody(waterbodyName, waterID, minCredentials) 
 		VALUES (inputWaterbodyName, 
-			(SELECT waterID FROM Origin WHERE inputWaterID = waterID), 
+			(SELECT waterID FROM Origin WHERE inputOrigin = waterName), 
 			inputMinCredentials);
 END//
 DELIMITER ;
@@ -269,10 +269,10 @@ delimiter //
 /* To let user add a rating*/
 Drop procedure if exists addRating;
 Delimiter //
-create procedure addRating(in inputUserID int, in inputWaterbodyID int, in inpurRating int)
+create procedure addRating(in inputUserID int, in inputWaterbodyID int, in inpurRating int, in inputDate DATE)
 begin
 	INSERT into Review (userID, waterbodyID, reviewDate, rating) 
-	VALUES (inputUserID, inputWaterbodyID, null, inpurRating);
+	VALUES (inputUserID, inputWaterbodyID, inputDate, inpurRating);
 end; //
 delimiter //
 
@@ -309,7 +309,7 @@ Delimiter //
 Create procedure checkCredentials(in inputUser int)
 begin
 	SELECT *
-	FROM Waterbody wb JOIN User u ON(wb.credentials <= u.credentials)
+	FROM Waterbody JOIN User ON(minCredentials <= credentials)
 	WHERE inputUser = userID;
 end; //
 delimiter //
@@ -326,6 +326,9 @@ BEGIN
 	HAVING location = loc; 
 END; //
 DELIMITER ;
+
+
+
 /* Load Data */
 /* LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/books.txt' INTO TABLE BOOK;
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/users.txt' INTO TABLE USER;

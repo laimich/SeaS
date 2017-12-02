@@ -1,5 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,6 +9,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.TreeMap;
 
 import javax.swing.JButton;
@@ -19,24 +18,7 @@ public class WaterbodyPage extends JFrame {
 
 	private JPanel waterbodyPanel;
 	private WaterModel model;
-
-
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					WaterbodyPage frame = new WaterbodyPage();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -85,7 +67,19 @@ public class WaterbodyPage extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Object input = JOptionPane.showInputDialog("Enter rating: ");
-				//System.out.println("You entered: " + input);
+				//JOptionPane.
+				System.out.println("You entered: " + input);
+				int numRate = (int) Integer.parseInt(input.toString());
+				try {
+					boolean canAddRating = model.checkCredandInputReview(numRate);
+					if (!canAddRating) {
+						JOptionPane.showMessageDialog(null, "Error: You don't have the credentials to leave a rating.");
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					System.out.println("You do not have the right access to thing item!!!");
+					e.printStackTrace();
+				}
 			}
 		});
 		waterbodyPanel.add(btnNewButton);

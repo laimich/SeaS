@@ -5,6 +5,7 @@
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -83,6 +84,11 @@ public class LogInPage extends JFrame {
 				}
 				if(model.canLogin(username, password)) {
 					String title = model.getCurrentUserTitle();
+					
+					//update the archive whenever a user logs in
+					Date currentDate = new Date(System.currentTimeMillis());
+					model.updateArchive(currentDate);
+					
 					if(title.equals("admin")) {
 						AdminHomePage admin = new AdminHomePage(model);
 						dispose();
