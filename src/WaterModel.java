@@ -378,8 +378,8 @@ public class WaterModel {
 	
 	
 	
-	public boolean checkCredandInputReview(int reviewNum) 
-				throws SQLException{
+
+	public boolean checkCredandInputReview(int reviewNum) throws SQLException{
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -387,15 +387,18 @@ public class WaterModel {
 			CallableStatement cs = conn.prepareCall("{CALL checkCredentials(?)}");
 			cs.setInt(1, currentUser.getID());
 			
-			stmtDrop.execute(queryDropAddRate);
-			CallableStatement cs2 = conn.prepareCall("{CALL addRating(?,?,?)}");
+			CallableStatement cs2 = conn.prepareCall("{CALL addRating(?,?,?,?)}");
+			Date currentDate = new Date(System.currentTimeMillis());
 			cs2.setInt(1, currentUser.getID());
 			cs2.setInt(2, searchID);
 			cs2.setInt(3, reviewNum);
-			cs.execute();
-			cs2.execute();
+			cs2.setDate(4, currentDate);
 			
-			return true;
+			if(cs.execute()) {
+				cs2.execute();
+				return true;
+			}
+			return false;
 		} 
 		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
 		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
