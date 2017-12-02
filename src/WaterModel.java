@@ -378,34 +378,27 @@ public class WaterModel {
 	
 	
 	
-	public boolean checkCredandInputReview(int reviewNum) 
-				throws SQLException{
-		currentUser.getID();
+	public boolean checkCredandInputReview(int reviewNum) throws SQLException{
 		
-		
-		String queryDropCred = "Drop procedure if exists checkCredentials";
-		String queryDropAddRate = "Drop procedure if exists addRating";
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			//execute query
-			
-			Statement stmtDrop = conn.createStatement();
-			stmtDrop.execute(queryDropCred);
-			
 			CallableStatement cs = conn.prepareCall("{CALL checkCredentials(?)}");
 			cs.setInt(1, currentUser.getID());
 			
-			
-			stmtDrop.execute(queryDropAddRate);
-			CallableStatement cs2 = conn.prepareCall("{CALL addRating(?,?,?)}");
+			CallableStatement cs2 = conn.prepareCall("{CALL addRating(?,?,?,?)}");
+			Date currentDate = new Date(System.currentTimeMillis());
 			cs2.setInt(1, currentUser.getID());
 			cs2.setInt(2, searchID);
 			cs2.setInt(3, reviewNum);
-			cs.execute();
-			cs2.execute();
+			cs2.setDate(4, currentDate);
 			
-			return true;
+			if(cs.execute()) {
+				cs2.execute();
+				return true;
+			}
+			return false;
 		} 
 		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
 		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName

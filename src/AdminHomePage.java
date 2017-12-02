@@ -64,16 +64,16 @@ public class AdminHomePage extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int searchID = model.getSearchID(txtEnterWaterbody.getText());
 				if(searchID == 0) {
-					JOptionPane.showMessageDialog(null, "Invalid waterbody.");
+					JOptionPane.showMessageDialog(null, "Error: Invalid waterbody.");
 				}
 				else {
 					if(model.getSearchType().equals("waterbody")) {
-						WaterbodyPage page = new WaterbodyPage(model);
+						AdminSearchPage page = new AdminSearchPage(model);
 						dispose();
 					}
 					else if(model.getSearchType().equals("location")) {
 						//only allow search for waterbody
-						JOptionPane.showMessageDialog(null, "Invalid waterbody.");
+						JOptionPane.showMessageDialog(null, "Error: Invalid waterbody.");
 					}
 				}
 			}
