@@ -378,8 +378,8 @@ public class WaterModel {
 	
 	
 	
+
 	public boolean checkCredandInputReview(int reviewNum) throws SQLException{
-		
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -413,4 +413,52 @@ public class WaterModel {
 		return false;
 	}
 
+	public void checkViewAllReview() throws SQLException{
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			
+			CallableStatement cs = conn.prepareCall("{CALL checkCredentials()}");	
+			cs.execute();	
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+	}
+	
+	
+	public void checkDeleteReview() throws SQLException{
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			//String searchName;
+			//Date date;
+			//int c;
+			
+			
+			CallableStatement cs = conn.prepareCall("{CALL checkCredentials(?,?,?,?)}");	
+			//cs.setString(1, searchName);
+			//cs.setInt(2, currentUser.getID());
+			//cs.setDate(3, date);
+			//cs.setInt(4, c);
+			cs.execute();
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+	}
 }
