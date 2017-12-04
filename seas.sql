@@ -83,7 +83,7 @@ CREATE TRIGGER addWaterRating
 AFTER INSERT on Review 
 FOR EACH ROW 
 BEGIN 
-	UPDATE WaterRating SET numRating = numRating + 1 WHERE waterbodyID = New.waterbodyID; 
+	UPDATE WaterRating SET numRating = numRating+1 WHERE waterbodyID = New.waterbodyID; 
     UPDATE WaterRating SET lastUpdated = New.reviewDate WHERE waterbodyID = New.waterbodyID; 
     UPDATE WaterRating SET avgRating = 
         (SELECT avg(rating) FROM Review GROUP BY waterbodyID HAVING waterbodyID = New.waterbodyID)
@@ -102,7 +102,8 @@ FOR EACH ROW
 BEGIN 
 	UPDATE WaterRating SET numRating = numRating-1 WHERE waterbodyID = Old.waterbodyID; 
     UPDATE WaterRating SET avgRating = 
-        (SELECT avg(rating) FROM Review GROUP BY waterbodyID HAVING waterbodyID = Old.waterbodyID); 
+        (SELECT avg(rating) FROM Review GROUP BY waterbodyID HAVING waterbodyID = Old.waterbodyID)
+		WHERE waterbodyID = New.waterbodyID; ; 
 END; //
 DELIMITER ;
 
