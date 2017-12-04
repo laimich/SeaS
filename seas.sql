@@ -294,11 +294,11 @@ Drop procedure if exists adminViewReview;
 Delimiter //
 Create procedure adminViewReview()
 begin
-	SELECT userID, userName, waterbodyName, reviewDate, rating 
+	SELECT User.userID, userName, waterbodyName, reviewDate, rating 
 	FROM User LEFT OUTER JOIN 
 		(SELECT userID, waterbodyName, reviewDate, rating 
 		FROM Review INNER JOIN Waterbody USING (waterbodyID)) as AllReviews
-		ON (userID);	
+		USING (userID);	
 end; //
 delimiter //
 
@@ -306,11 +306,11 @@ delimiter //
 /* System checks user credentials to waterbody credentials*/
 Drop procedure if exists checkCredentials;
 Delimiter //
-Create procedure checkCredentials(in inputUser int)
+Create procedure checkCredentials(in inputUser int, in inputWater int)
 begin
 	SELECT *
 	FROM Waterbody JOIN User ON(minCredentials <= credentials)
-	WHERE inputUser = userID;
+	WHERE inputUser = userID AND inputWater = waterbodyID;
 end; //
 delimiter //
 

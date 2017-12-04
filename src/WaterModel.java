@@ -11,7 +11,7 @@ public class WaterModel {
 
 	//  Database credentials
 	static final String USER = "root";
-	static final String PASS = "1234"; //"newpass";
+	static final String PASS = "newpass";
 
 	private User currentUser;
 	private int searchID;
@@ -384,8 +384,9 @@ public class WaterModel {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			//execute query
-			CallableStatement cs = conn.prepareCall("{CALL checkCredentials(?)}");
+			CallableStatement cs = conn.prepareCall("{CALL checkCredentials(?, ?)}");
 			cs.setInt(1, currentUser.getID());
+			cs.setInt(2, searchID);
 			
 			CallableStatement cs2 = conn.prepareCall("{CALL addRating(?,?,?,?)}");
 			Date currentDate = new Date(System.currentTimeMillis());
@@ -393,8 +394,8 @@ public class WaterModel {
 			cs2.setInt(2, searchID);
 			cs2.setInt(3, reviewNum);
 			cs2.setDate(4, currentDate);
-			
-			if(cs.execute()) {
+			ResultSet rs = cs.executeQuery();
+			if(rs.next()) {
 				cs2.execute();
 				return true;
 			}
@@ -414,14 +415,26 @@ public class WaterModel {
 	}
 	
 
-	public void checkViewAllReview() throws SQLException{
+	public ArrayList<String[]> getAllReviews() throws SQLException{
+		ArrayList<String[]> info = new ArrayList<String[]>();
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			//execute query
-			
-			CallableStatement cs = conn.prepareCall("{CALL checkCredentials()}");	
-			cs.execute();	
+			CallableStatement cs = conn.prepareCall("{CALL adminViewReview()}");		
+			if(cs.execute()) {
+				ResultSet rs = cs.getResultSet();
+				while(rs.next()) {
+					String[] entry = new String[5];
+					entry[0] = rs.getInt(1) + ""; //userID of review
+					entry[1] = rs.getString(2); //userName of review
+					entry[2] = rs.getString(3); //waterbody name of review
+					entry[3] = rs.getDate(4) + ""; //date of review
+					entry[4] = rs.getInt(5) + ""; //rating of review
+					info.add(entry);
+				}
+				return info;
+			}
 		} 
 		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
 		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
@@ -432,6 +445,7 @@ public class WaterModel {
 			catch(SQLException se){ se.printStackTrace(); }
 			//end finally try
 		}//end try
+		return null;
 	}
 	
 	

@@ -19,7 +19,6 @@ public class AdminHomePage extends JFrame {
 
 	private JPanel AdminMainPanel;
 	private JTextField txtEnterWaterbody;
-	private WaterModel model;
 
 
 //	/**
@@ -89,6 +88,14 @@ public class AdminHomePage extends JFrame {
 		JButton btnNewButton = new JButton("View All Reviews");
 		btnNewButton.setBounds(65, 142, 273, 29);
 		AdminMainPanel.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				AdminViewAllReviewPage page = new AdminViewAllReviewPage(model);
+				dispose();
+			}
+			
+		});
 		
 		JButton btnAddWaterbody = new JButton("Add Waterbody");
 		btnAddWaterbody.setBounds(65, 194, 273, 29);

@@ -21,7 +21,6 @@ public class LogInPage extends JFrame {
 	private JPanel logInMainPanel;
 	private JTextField userNameText;
 	private JTextField passwordText;
-	private WaterModel model;
 
 
 //	/**

@@ -17,7 +17,6 @@ public class UserHomePage extends JFrame {
 
 	private JPanel homePagePanel;
 	private JTextField searchArea;
-	private WaterModel model;
 
 	/**
 	 * Create the frame.

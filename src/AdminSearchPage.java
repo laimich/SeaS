@@ -14,28 +14,28 @@ public class AdminSearchPage extends JFrame {
 	private JPanel contentPane;
 	private JTable waterbodyInfoTable;
 
-	/*
-	public static void main(String[] args) {
+	
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AdminSearchPage frame = new AdminSearchPage();
+					AdminSearchPage frame = new AdminSearchPage(new WaterModel());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
-	*/
+	}*/
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public AdminSearchPage() {
+	public AdminSearchPage(WaterModel model) {
 		setTitle("SeaS Admin Search Waterbody");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 411, 281);
+		setBounds(100, 100, 425, 320);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -47,12 +47,8 @@ public class AdminSearchPage extends JFrame {
 		contentPane.add(waterbodyNameLabel);
 		
 		JButton updateButton = new JButton("Update");
-		updateButton.setBounds(70, 225, 117, 29);
+		updateButton.setBounds(140, 225, 117, 29);
 		contentPane.add(updateButton);
-		
-		JButton deleteButton = new JButton("Delete");
-		deleteButton.setBounds(211, 225, 117, 29);
-		contentPane.add(deleteButton);
 		
 		JScrollPane scrollInfoPane = new JScrollPane();
 		scrollInfoPane.setBounds(48, 39, 314, 169);
@@ -61,8 +57,9 @@ public class AdminSearchPage extends JFrame {
 		waterbodyInfoTable = new JTable();
 		scrollInfoPane.setViewportView(waterbodyInfoTable);
 		
-		JButton btnHome = new JButton("Home");
-		btnHome.setBounds(285, 3, 81, 29);
-		contentPane.add(btnHome);
+//		JButton btnHome = new JButton("Home");
+//		btnHome.setBounds(285, 3, 81, 29);
+//		contentPane.add(btnHome);
+		setVisible(true);
 	}
 }

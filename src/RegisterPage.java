@@ -19,8 +19,7 @@ public class RegisterPage extends JFrame {
 	private JTextField userNameText;
 	private JTextField passwordsText;
 	private JTextField ifExistUser;
-	private WaterModel model;
-
+	
 //	/**
 //	 * Launch the application.
 //	 */
