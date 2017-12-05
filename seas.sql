@@ -103,7 +103,7 @@ BEGIN
 	UPDATE WaterRating SET numRating = numRating-1 WHERE waterbodyID = Old.waterbodyID; 
     UPDATE WaterRating SET avgRating = 
         (SELECT avg(rating) FROM Review GROUP BY waterbodyID HAVING waterbodyID = Old.waterbodyID)
-		WHERE waterbodyID = New.waterbodyID; ; 
+		WHERE waterbodyID = Old.waterbodyID;
 END; //
 DELIMITER ;
 
