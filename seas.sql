@@ -211,8 +211,8 @@ DROP PROCEDURE IF EXISTS viewAllRatings;
 DELIMITER //
 CREATE PROCEDURE viewAllRatings(IN inputName VARCHAR(30))
 BEGIN 
-	SELECT userID, rating, reviewDate
-	FROM Waterbody wb
+	SELECT rr.userID, rr.rating, reviewDate
+	FROM Waterbody wb, Review rr
 	WHERE EXISTS (SELECT * FROM Review r WHERE wb.waterbodyID = r.waterbodyID)
 		AND waterbodyName = inputName;
 END//
