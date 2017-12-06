@@ -476,4 +476,55 @@ public class WaterModel {
 			//end finally try
 		}//end try
 	}
+	
+	// get waterbody's credentials
+	public int getWaterCredential() {
+		int credential = -1;
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			String sql = "select minCredentials from waterbody where waterbodyID = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, searchID);
+			ResultSet rs = pstmt.executeQuery();
+			//if no existing accounts with the same name, return true
+			if(rs.next()) {
+				credential = rs.getInt("minCredentials");
+			}
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+		return credential;
+	}
+	
+	// update waterbody credential
+	public void updateWaterbodyCredential(int credential) {
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			
+			CallableStatement cs = conn.prepareCall("{CALL updateWaterbody(?,?)}");	
+			cs.setInt(1, credential);
+			cs.setString(2, searchName);
+			cs.execute();
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+	}
 }

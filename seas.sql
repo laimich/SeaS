@@ -209,7 +209,7 @@ DELIMITER ;
 /* Admin views all ratings of a waterbody */
 DROP PROCEDURE IF EXISTS viewAllRatings;
 DELIMITER //
-CREATE PROCEDURE viewAllRatings(IN inputName VARCHAR(30))
+CREATE PROCEDURE viewAllRatings(IN inputName VARCHAR(60))
 BEGIN 
 	SELECT userID, rating, reviewDate
 	FROM Waterbody wb
@@ -252,7 +252,7 @@ begin
 	FROM Origin JOIN Waterbody USING(waterID) JOIN Waterrating USING(waterbodyID)
 	WHERE inputWaterbodyID = Waterbody.waterbodyID;
 end; //
-delimiter //
+delimiter ;
 
 
 /* To view list of waterbodies for a location search */
@@ -264,7 +264,7 @@ begin
 	FROM Origin JOIN Waterbody USING(waterID)
 	WHERE Origin.waterID = userSearchID;
 end; //
-delimiter //
+delimiter ;
 
 
 /* To let user add a rating*/
@@ -275,7 +275,7 @@ begin
 	INSERT into Review (userID, waterbodyID, reviewDate, rating) 
 	VALUES (inputUserID, inputWaterbodyID, inputDate, inpurRating);
 end; //
-delimiter //
+delimiter ;
 
 
 /* User views number of reviews given */
@@ -287,7 +287,7 @@ begin
 	FROM Review
 	WHERE inputUser = userID;
 end; //
-delimiter //
+delimiter ;
 
 
 /* Admin views all revies given by every user*/
@@ -301,7 +301,7 @@ begin
 		FROM Review INNER JOIN Waterbody USING (waterbodyID)) as AllReviews
 		USING (userID);	
 end; //
-delimiter //
+delimiter ;
 
 
 /* System checks user credentials to waterbody credentials*/
@@ -313,7 +313,7 @@ begin
 	FROM Waterbody JOIN User ON(minCredentials <= credentials)
 	WHERE inputUser = userID AND inputWater = waterbodyID;
 end; //
-delimiter //
+delimiter ;
 
 
 /* User views average rating for all waterbodies in a location */
@@ -327,6 +327,7 @@ BEGIN
 	HAVING location = loc; 
 END; //
 DELIMITER ;
+
 
 
 

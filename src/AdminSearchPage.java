@@ -1,9 +1,12 @@
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,8 +17,8 @@ public class AdminSearchPage extends JFrame {
 	private JPanel contentPane;
 	private JTable waterbodyInfoTable;
 
-	
-	/*public static void main(String[] args) {
+	/*
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -26,8 +29,8 @@ public class AdminSearchPage extends JFrame {
 				}
 			}
 		});
-	}*/
-	
+	}
+	*/
 
 	/**
 	 * Create the frame.
@@ -49,6 +52,22 @@ public class AdminSearchPage extends JFrame {
 		JButton updateButton = new JButton("Update");
 		updateButton.setBounds(140, 225, 117, 29);
 		contentPane.add(updateButton);
+		updateButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent a) {
+				int credential = model.getWaterCredential();
+				if(credential != -1) {
+					AdminUpdateWaterCredPage updatePage = new AdminUpdateWaterCredPage(model, credential);
+					dispose();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Error: Invalid waterbody.");
+				}
+				
+			}
+			
+		});
 		
 		JScrollPane scrollInfoPane = new JScrollPane();
 		scrollInfoPane.setBounds(48, 39, 314, 169);
