@@ -103,7 +103,7 @@ BEGIN
 	UPDATE WaterRating SET numRating = numRating-1 WHERE waterbodyID = Old.waterbodyID; 
     UPDATE WaterRating SET avgRating = 
         (SELECT avg(rating) FROM Review GROUP BY waterbodyID HAVING waterbodyID = Old.waterbodyID)
-		WHERE waterbodyID = New.waterbodyID; ; 
+		WHERE waterbodyID = Old.waterbodyID;
 END; //
 DELIMITER ;
 
@@ -211,8 +211,8 @@ DROP PROCEDURE IF EXISTS viewAllRatings;
 DELIMITER //
 CREATE PROCEDURE viewAllRatings(IN inputName VARCHAR(60))
 BEGIN 
-	SELECT userID, rating, reviewDate
-	FROM Waterbody wb
+	SELECT rr.userID, rr.rating, reviewDate
+	FROM Waterbody wb, Review rr
 	WHERE EXISTS (SELECT * FROM Review r WHERE wb.waterbodyID = r.waterbodyID)
 		AND waterbodyName = inputName;
 END//

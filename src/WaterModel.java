@@ -449,6 +449,46 @@ public class WaterModel {
 	}
 	
 	
+	
+	
+	//For Administration water body search
+	public ArrayList<String[]> getAdminWaterbodySearch(String waterbodyInput) throws SQLException{
+		ArrayList<String[]> info = new ArrayList<String[]>();
+		try {
+			//establish connection
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			//execute query
+			CallableStatement cs = conn.prepareCall("{CALL viewAllRatings(?)}");
+			cs.setString(1, waterbodyInput);
+			
+			if(cs.execute()) {
+				ResultSet rs = cs.getResultSet();
+				int i = 1;
+				while(rs.next()) {
+					String[] entry = new String[4];
+					entry[0] = i + "";
+					entry[1] = rs.getInt(1) + ""; //userID of review
+					entry[2] = rs.getInt(2) + ""; //waterbody rating
+					entry[3] = rs.getDate(3) + ""; //waterbody reviewDate 
+					info.add(entry);
+					++i;
+				}
+				return info;
+			}
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+		return null;
+	}
+	
+	
 	public void checkDeleteReview() throws SQLException{
 		try {
 			//establish connection

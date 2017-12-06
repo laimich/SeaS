@@ -35,7 +35,7 @@ public class AdminSearchPage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AdminSearchPage(WaterModel model) {
+	public AdminSearchPage(WaterModel model, String txtEnterWaterbody) {
 		setTitle("SeaS Admin Search Waterbody");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 425, 320);
@@ -73,6 +73,17 @@ public class AdminSearchPage extends JFrame {
 		scrollInfoPane.setBounds(48, 39, 314, 169);
 		contentPane.add(scrollInfoPane);
 		
+		
+		ArrayList<String[]> info = new ArrayList<String[]>();
+		try {
+			info = model.getAdminWaterbodySearch(txtEnterWaterbody);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String[] columnNames = {"#", "UserID", "Rating", "Review Date"};
+		DefaultTableModel table = new DefaultTableModel(columnNames, info.size());
+		for(int x = 0; x < info.size(); x++) {
+			table.insertRow(x, info.get(x));
 		waterbodyInfoTable = new JTable();
 		scrollInfoPane.setViewportView(waterbodyInfoTable);
 		
