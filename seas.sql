@@ -45,7 +45,7 @@ CREATE TABLE REVIEW (
 	waterbodyID INT,
 	reviewDate DATE NOT NULL DEFAULT '0000-00-00',
 	rating INT NOT NULL DEFAULT 1,
-    PRIMARY KEY (userID, waterbodyID),
+    -- PRIMARY KEY (userID, waterbodyID),
 	FOREIGN KEY (userID) REFERENCES User(userID) on delete cascade,
 	FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
 );
@@ -67,7 +67,7 @@ CREATE TABLE ARCHIVEREVIEW (
 	waterbodyID INT,
 	reviewDate DATE NOT NULL DEFAULT '0000-00-00',
 	rating INT NOT NULL DEFAULT 1,
-    PRIMARY KEY (userID, waterbodyID),
+    -- PRIMARY KEY (userID, waterbodyID),
 	FOREIGN KEY (userID) REFERENCES User(userID) on delete cascade,
 	FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
 );
