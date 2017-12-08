@@ -192,15 +192,14 @@ BEGIN
 END//
 DELIMITER ;
 
-/* Admin deletes a rating */
+/* Admin deletes rating */
 DROP PROCEDURE IF EXISTS deleteReview;
 DELIMITER //
-CREATE PROCEDURE deleteReview(IN searchName VARCHAR(30), IN inputUserID INT, IN inputDate DATE, IN inputRating INT)
+CREATE PROCEDURE deleteReview(IN searchName VARCHAR(30), IN inputUserID INT)
 BEGIN
 	DELETE FROM Review
 	WHERE searchName = (SELECT waterbodyName FROM Waterbody) AND
-		(inputUserID, inputDate, inputRating) IN 
-			(SELECT userID, reviewDate, rating FROM Review);
+		inputUserID = userID;
 END//
 DELIMITER ;
 
