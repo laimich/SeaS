@@ -133,6 +133,7 @@ public class AdminHomePage extends JFrame {
 				}
 				else {
 					model.addWaterbody(inputWaterbody.toString(), inputOrigin.toString(), minCred);
+					JOptionPane.showMessageDialog(null, "Successfully added waterbody!");
 				}
 			}			
 		});
