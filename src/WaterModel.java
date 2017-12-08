@@ -29,7 +29,6 @@ public class WaterModel {
 		stmt = null;
 		pstmt = null;
 		cs = null;
-
 	}
 
 	public void createAccount(String username, String password) {
