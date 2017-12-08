@@ -1,4 +1,3 @@
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -61,6 +60,11 @@ public class UserHomePage extends JFrame {
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Invalid waterbody or location");
+					}
+					int numReviews = Integer.parseInt(info[2]);
+
+					if (numReviews > model.getCurrentUserCredentials() * 5) {
+						model.updateUserCredential((model.getCurrentUserCredentials() + 1));
 					}
 				}
 			}
