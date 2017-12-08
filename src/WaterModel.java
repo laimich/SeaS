@@ -155,7 +155,11 @@ public class WaterModel {
 
 	public int getSearchID(String name) {
 		ResultSet rs = null;
-		searchName = name;
+		searchName = name.trim();
+		if (searchName.isEmpty()) {
+			return 0;
+		}else {
+		
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -181,7 +185,7 @@ public class WaterModel {
 			catch(SQLException se){ se.printStackTrace(); }
 			//end finally try
 		}//end try
-
+		}
 		return 0;
 	}
 
