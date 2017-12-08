@@ -1,11 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -52,7 +55,8 @@ public class AdminViewAllReviewPage extends JFrame {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		String[] columnNames = { "UserID", "User", "Waterbody", "Date", "Rating" };
+		final ArrayList<String[]> infoCopy = info;
+		String[] columnNames = { "#", "ID", "User", "Waterbody", "Date", "Rating" };
 		DefaultTableModel table = new DefaultTableModel(columnNames, info.size());
 		for(int x = 0; x < info.size(); x++) {
 			table.insertRow(x, info.get(x));
@@ -66,6 +70,17 @@ public class AdminViewAllReviewPage extends JFrame {
 		JButton deleteButton = new JButton("Delete");
 		deleteButton.setBounds(140, 225, 117, 29);
 		contentPane.add(deleteButton);
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent a) {
+				Object input = JOptionPane.showInputDialog("Enter # row of rating to delete: ");
+				int numRow = Integer.parseInt(input.toString());
+				String[] rowInfo = infoCopy.get(numRow-1);
+				
+				//delete review with information in rowInfo
+			}
+			
+		});
 		
 		JScrollPane scrollInfoPane = new JScrollPane();
 		scrollInfoPane.setBounds(48, 39, 314, 169);
@@ -74,7 +89,12 @@ public class AdminViewAllReviewPage extends JFrame {
 		waterbodyInfoTable = new JTable(table);
 		waterbodyInfoTable.setCellSelectionEnabled(false);
 		scrollInfoPane.setViewportView(waterbodyInfoTable);
-		
+		waterbodyInfoTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+		waterbodyInfoTable.getColumnModel().getColumn(1).setPreferredWidth(35);
+		waterbodyInfoTable.getColumnModel().getColumn(2).setPreferredWidth(50);
+		waterbodyInfoTable.getColumnModel().getColumn(4).setPreferredWidth(70);
+		waterbodyInfoTable.getColumnModel().getColumn(5).setPreferredWidth(40);
+		waterbodyInfoTable.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 //		JButton btnHome = new JButton("Home");
 //		btnHome.setBounds(285, 3, 81, 29);
 //		contentPane.add(btnHome);

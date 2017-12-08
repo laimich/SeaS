@@ -424,14 +424,17 @@ public class WaterModel {
 			CallableStatement cs = conn.prepareCall("{CALL adminViewReview()}");		
 			if(cs.execute()) {
 				ResultSet rs = cs.getResultSet();
+				int i = 1;
 				while(rs.next()) {
-					String[] entry = new String[5];
-					entry[0] = rs.getInt(1) + ""; //userID of review
-					entry[1] = rs.getString(2); //userName of review
-					entry[2] = rs.getString(3); //waterbody name of review
-					entry[3] = rs.getDate(4) + ""; //date of review
-					entry[4] = rs.getInt(5) + ""; //rating of review
+					String[] entry = new String[6];
+					entry[0] = i + "";
+					entry[1] = rs.getInt(1) + ""; //userID of review
+					entry[2] = rs.getString(2); //userName of review
+					entry[3] = rs.getString(3); //waterbody name of review
+					entry[4] = rs.getDate(4) + ""; //date of review
+					entry[5] = rs.getInt(5) + ""; //rating of review
 					info.add(entry);
+					i++;
 				}
 				return info;
 			}

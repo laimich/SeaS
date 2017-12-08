@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Waterbody ID,water body,Lat,Long,2009,2010,2011,2012,2013,2014,2015
 GB109055022840,Mounton Bk - source to R Severn Estuary,51.643871,-2.720764,4.5,5,5,5,5,5,5
 GB109055029690,Garren Bk - conf Gamber Bk to conf R Wye,51.872893,-2.6452875,5,5,5,5,5,4,4
@@ -43,50 +42,4 @@ GB109055041940,Pinsley Bk - source to conf R Lugg,52.230883,-2.7676021,4.5,5,4.5
 GB109055041950,Cheaton Bk - source to conf R Lugg,52.219359,-2.6902462,5,5,5,5,4,4,4
 GB109055042000,Ridgemoor Bk - source to conf R Lugg,52.279728,-2.7408892,5,5,4.5,5,5,4,4
 GB109055042030,Lugg - conf Norton Bk to conf R Arrow,52.28129,-2.899154,5,5,5,5,5,4,5
-=======
-Waterbody ID,water body,Lat,Long,2009,2010,2011,2012,2013,2014,2015
-GB109055022840,Mounton Bk - source to R Severn Estuary,51.643871,-2.720764,4.5,5,5,5,5,5,5
-GB109055029690,Garren Bk - conf Gamber Bk to conf R Wye,51.872893,-2.6452875,5,5,5,5,5,4,4
-GB109055029700,Walford Bk - source to conf R Wye,51.888637,-2.5759276,3,3,4,4.5,4,4,4
-GB109055029710,Garren Bk - source to conf Gamber Bk,51.911077,-2.7528896,5,5,5,5,4,4,4
-GB109055029730,Rudhall Bk - source to conf R Wye,51.930073,-2.5145315,5,5,5,5,5,5,5
-GB109055036580,Stretford Bk - source to conf R Arrow,52.178414,-2.8551628,5,5,5,4.5,4,4,4
-GB109055036600,Gladestry Bk - source to conf R Arrow,52.184237,-3.0938514,5,5,5,5,4,4,3
-GB109055036610,Honeylake Bk - source to conf Little Arrow,52.184694,-2.7873421,5,5,4.5,3,4,4,4
-GB109055036620,Arrow - conf Gladestry Bk to conf Gilwern Bk,52.198695,-3.0411084,5,5,5,5,5,5,5
-GB109055036630,Tippets Bk - source to conf Stretford Bk,52.202762,-2.8512697,5,5,5,5,4,4,4
-GB109055036650,Tarrington Bk - source to conf R Frome,52.07466,-2.5715931,4,4,3.5,3,4,4,3
-GB109055036660,Lodon - source to conf R Frome,52.131476,-2.5460969,5,5,5,4,4,4,3.5
-GB109055036670,Pentaloe Bk - source to conf R Wye,52.035502,-2.6065029,5,5,5,4.5,4,4,4
-GB109055036710,Withington Marsh Bk - source to conf R Little Lugg,52.093616,-2.6342658,4,4,4,4,4,4,3
-GB109055036720,Little Lugg - source to conf R Lugg,52.108338,-2.6482295,4,4.5,3.5,3.5,4,4,4
-GB109055036740,Bodenham Bk - source to conf R Lugg,52.15038,-2.6704709,5,5,5,4,4,4,3
-GB109055036750,Wellington Bk - source to conf R Lugg,52.137571,-2.7742665,5,5,5,5,4,4,4
-GB109055036771,Humber Bk - source to conf R Lugg,52.214577,-2.6569913,,,,,4,4,4
-GB109055036780,Frome - conf Tedstone Bk to conf R Lugg,52.112367,-2.5025513,4.5,4.5,4.5,4,4,4,4
-GB109055036790,Lugg - conf R Arrow to conf R Wye,52.052012,-2.6480845,5,5,4.5,5,4.5,4,4
-GB109055036880,Gamber Bk - source to conf Garren Bk,51.932677,-2.72662,5,5,5,5,4,4,4
-GB109055036890,Wriggle Bk - source to conf R Wye,51.966994,-2.6879767,3,5,5,5,4,4,4
-GB109055036930,Norton Bk - source to conf R Wye,52.031977,-2.7096001,3,3,3,3,4,4,4
-GB109055036940,How Caple Bk - source to conf R Wye,51.982484,-2.572326,5,5,5,5,4.5,4,4
-GB109055036960,Cage Bk - source to conf R Wye,52.03232,-2.8200985,3,4,4,4,4,4,4
-GB109055037000,Preston Bk - source to conf R Wye,52.066405,-2.910644,5,5,5,5,4,4,4
-GB109055037040,Yazor Bk - source to conf R Wye,52.082487,-2.7779824,4.5,5,5,5,4,4,4
-GB109055037070,Willersley Bk - source to conf R Wye,52.12459,-3.0124442,5,5,5,5,4,4,4
-GB109055037100,Kinnersley Bk - source to conf R Wye,52.132044,-2.980545,5,5,5,5,4,4,4
-GB109055037111,Wye - conf Walford Bk to Bigsweir Br,51.836398,-2.6710494,4,4,4,4,4,4,4
-GB109055037112,Wye - Hampton Bishop to conf Kerne Br,51.913419,-2.5987064,4,4,5,4,5,5,5
-GB109055037113,Wye - Bredwardine Br to Hampton Bishop,52.064423,-2.8547628,4,4,4,4,4,4,4
-GB109055037120,Letton Lake Bk - source to conf R Wye,52.118303,-2.954553,5,5,4,5,4,4,4
-GB109055037180,Moreton Bk - source to conf R Lugg,52.098204,-2.6988554,4,5,5,5,4,4,4
-GB109055041820,Curl Bk - source to conf R Arrow,52.201031,-2.9394833,5,5,5,4.5,4,4,4
-GB109055041840,Arrow - conf Gilwern Bk to conf R Lugg,52.224419,-2.8564419,5,5,5,5,4,4,4.5
-GB109055041850,Frome - source to conf Tedstone Bk,52.215985,-2.5445425,5,4.5,4,4,4,4,3.5
-GB109055041860,Tedstone Bk - source to conf R Frome,52.213385,-2.4981587,5,5,4.5,4,4,4,4
-GB109055041930,Hindwell Bk - conf Knobley Bk to conf R Lugg,52.26072,-2.9932863,5,5,5,5,5,4,4
-GB109055041940,Pinsley Bk - source to conf R Lugg,52.230883,-2.7676021,4.5,5,4.5,4.5,4,4,4
-GB109055041950,Cheaton Bk - source to conf R Lugg,52.219359,-2.6902462,5,5,5,5,4,4,4
-GB109055042000,Ridgemoor Bk - source to conf R Lugg,52.279728,-2.7408892,5,5,4.5,5,5,4,4
-GB109055042030,Lugg - conf Norton Bk to conf R Arrow,52.28129,-2.899154,5,5,5,5,5,4,5
->>>>>>> 87363ae55a13826187c53fa9ff704788b19beda7
 GB109055042060,Lime Bk - source to conf R Lugg,52.288815,-2.9190549,5,5,5,5,4,4.5,5

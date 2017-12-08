@@ -18,13 +18,13 @@ ALTER table ORIGIN AUTO_INCREMENT = 101;
 DROP TABLE IF EXISTS WATERBODY;
 CREATE TABLE WATERBODY (
 	waterbodyID INT AUTO_INCREMENT,
-	waterbodyName VARCHAR(30) UNIQUE NOT NULL,
+	waterbodyName VARCHAR(55) UNIQUE NOT NULL,
 	waterID INT,
 	minCredentials INT NOT NULL DEFAULT 1,
     PRIMARY KEY (waterbodyID),
 	FOREIGN KEY(waterID) REFERENCES ORIGIN(waterID) on delete cascade
 );
-ALTER table WATERBODY AUTO_INCREMENT = 201;
+ALTER table WATERBODY AUTO_INCREMENT = 501;
 
 
 DROP TABLE IF EXISTS USER;
@@ -103,7 +103,7 @@ BEGIN
 	UPDATE WaterRating SET numRating = numRating-1 WHERE waterbodyID = Old.waterbodyID; 
     UPDATE WaterRating SET avgRating = 
         (SELECT avg(rating) FROM Review GROUP BY waterbodyID HAVING waterbodyID = Old.waterbodyID)
-		WHERE waterbodyID = Old.waterbodyID;
+		WHERE waterbodyID = New.waterbodyID; ; 
 END; //
 DELIMITER ;
 
@@ -328,6 +328,7 @@ BEGIN
 END; //
 DELIMITER ;
 
+/*
 
 
 
@@ -338,4 +339,10 @@ LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/loans.txt' INTO TABLE LO
 LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/origin.txt' INTO TABLE ORIGIN 
 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
 LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/waterbody.txt' INTO TABLE waterbody 
+	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
+
+LOAD DATA LOCAL INFILE 'D:/OneDrive/CS/CS157a/SeaS/waterbody.txt' INTO TABLE waterbody 
+	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
+
+LOAD DATA LOCAL INFILE 'D:/OneDrive/CS/CS157a/SeaS/origin.txt' INTO TABLE ORIGIN 
 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';

@@ -66,17 +66,22 @@ public class WaterbodyPage extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Object input = JOptionPane.showInputDialog("Enter rating: ");
-				//JOptionPane.
-				System.out.println("You entered: " + input);
 				int numRate = (int) Integer.parseInt(input.toString());
 				try {
 					boolean canAddRating = model.checkCredandInputReview(numRate);
 					if (!canAddRating) {
 						JOptionPane.showMessageDialog(null, "Error: You don't have the credentials to leave a rating.");
 					}
+					else { //rating added successfully
+						//when user has given 3 ratings, increment their credentials (max 5)
+						
+						//refresh the page so updated rating info shows
+						WaterbodyPage page = new WaterbodyPage(model);
+						dispose();
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					System.out.println("You do not have the right access to thing item!!!");
+					System.out.println("You do not have the right access to this item!!!");
 					e.printStackTrace();
 				}
 			}

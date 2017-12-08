@@ -47,7 +47,7 @@ public class AdminSearchPage extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel waterbodyNameLabel = new JLabel("Waterbody Name");
+		JLabel waterbodyNameLabel = new JLabel("Waterbody: " + model.getSearchName());
 		waterbodyNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		waterbodyNameLabel.setBounds(130, 6, 151, 21);
 		contentPane.add(waterbodyNameLabel);
@@ -87,13 +87,18 @@ public class AdminSearchPage extends JFrame {
 		DefaultTableModel table = new DefaultTableModel(columnNames, info.size());
 		for(int x = 0; x < info.size(); x++) {
 			table.insertRow(x, info.get(x));
-			waterbodyInfoTable = new JTable();
-			scrollInfoPane.setViewportView(waterbodyInfoTable);
+
+		}
+		waterbodyInfoTable = new JTable(table);
+//		waterbodyInfoTable.setCellSelectionEnabled(false);
+		scrollInfoPane.setViewportView(waterbodyInfoTable);
+
+
 		
 //			JButton btnHome = new JButton("Home");
 //			btnHome.setBounds(285, 3, 81, 29);
 //			contentPane.add(btnHome);
-			setVisible(true);
-		}
+		setVisible(true);
+	
 	}
 }
