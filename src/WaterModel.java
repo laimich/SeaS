@@ -371,6 +371,10 @@ public class WaterModel {
 	public String getCurrentUserTitle() {
 		return currentUser.getTitle();
 	}
+	
+	public int getCurrentUserCredentials() {
+		return currentUser.getCredentials();
+	}
 
 	public String getSearchType() {
 		return searchType;

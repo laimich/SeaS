@@ -336,6 +336,7 @@ DELIMITER ;
 /* LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/books.txt' INTO TABLE BOOK;
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/users.txt' INTO TABLE USER;
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/loans.txt' INTO TABLE LOAN; */
+<<<<<<< HEAD
 LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/origin.txt' INTO TABLE ORIGIN 
 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
 LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/waterbody.txt' INTO TABLE waterbody 
@@ -346,3 +347,9 @@ LOAD DATA LOCAL INFILE 'D:/OneDrive/CS/CS157a/SeaS/waterbody.txt' INTO TABLE wat
 
 LOAD DATA LOCAL INFILE 'D:/OneDrive/CS/CS157a/SeaS/origin.txt' INTO TABLE ORIGIN 
 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
+=======
+-- LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/origin.txt' INTO TABLE ORIGIN 
+-- 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
+-- LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/waterbody.txt' INTO TABLE waterbody 
+-- 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
+>>>>>>> acc12530df6adf3b1431182b6fcce364a9de9c2b
