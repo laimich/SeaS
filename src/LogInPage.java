@@ -75,6 +75,8 @@ public class LogInPage extends JFrame {
 						UserHomePage admin = new UserHomePage(model);
 						dispose();
 					}
+				}else{
+					JOptionPane.showMessageDialog(null, "Invalid username/password combination");
 				}
 			}
 		});
