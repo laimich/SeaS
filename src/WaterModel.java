@@ -583,7 +583,7 @@ public class WaterModel {
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-				
+			currentUser.setCredentials(credential);
 			CallableStatement cs = conn.prepareCall("{CALL updateCredentials(?,?)}");	
 			cs.setInt(1, credential);
 			cs.setInt(2, currentUser.getID());

@@ -77,7 +77,6 @@ public class AdminViewAllReviewPage extends JFrame {
 				int numRow = Integer.parseInt(input.toString());
 				String[] rowInfo = infoCopy.get(numRow-1);
 				
-				
 				//delete review with information in rowInfo
 			}
 			
