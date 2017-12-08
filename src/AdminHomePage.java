@@ -67,7 +67,7 @@ public class AdminHomePage extends JFrame {
 				}
 				else {
 					if(model.getSearchType().equals("waterbody")) {
-						AdminSearchPage page = new AdminSearchPage(model, txtEnterWaterbody.getText());
+						AdminSearchPage page = new AdminSearchPage(model);
 						dispose();
 					}
 					else if(model.getSearchType().equals("location")) {
