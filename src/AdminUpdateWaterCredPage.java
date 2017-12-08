@@ -27,15 +27,15 @@ public class AdminUpdateWaterCredPage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AdminUpdateWaterCredPage frame = new AdminUpdateWaterCredPage();
+					AdminUpdateWaterCredPage frame = new AdminUpdateWaterCredPage(new WaterModel(), 1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
-	*/
+	}*/
+	
 
 	/**
 	 * Create the frame.
@@ -52,61 +52,62 @@ public class AdminUpdateWaterCredPage extends JFrame {
 		String waterbodyName = model.getSearchName();
 		JLabel lblWaterbodyName = new JLabel(waterbodyName);
 		lblWaterbodyName.setBounds(119, 10, 196, 32);
-		lblWaterbodyName.setFont(new Font("SimSun", Font.PLAIN, 28));
+//		lblWaterbodyName.setFont(new Font("SimSun", Font.PLAIN, 28));
 		lblWaterbodyName.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblWaterbodyName);
 		
 		JLabel lblCurrentCredential = new JLabel("Current Credential:");
-		lblCurrentCredential.setFont(new Font("SimSun", Font.PLAIN, 16));
+//		lblCurrentCredential.setFont(new Font("SimSun", Font.PLAIN, 16));
 		lblCurrentCredential.setBounds(52, 87, 160, 32);
 		contentPane.add(lblCurrentCredential);
 		
 		JLabel lblNewCredential = new JLabel("New Credential:");
-		lblNewCredential.setFont(new Font("SimSun", Font.PLAIN, 16));
+//		lblNewCredential.setFont(new Font("SimSun", Font.PLAIN, 16));
 		lblNewCredential.setBounds(50, 129, 162, 26);
 		contentPane.add(lblNewCredential);
 		
 		
 		JLabel label = new JLabel(oldCredential + "");
-		label.setFont(new Font("SimSun", Font.PLAIN, 16));
+//		label.setFont(new Font("SimSun", Font.PLAIN, 16));
 		label.setBounds(222, 87, 66, 32);
 		contentPane.add(label);
 		
 		textField = new JTextField();
-		textField.setFont(new Font("SimSun", Font.PLAIN, 16));
+//		textField.setFont(new Font("SimSun", Font.PLAIN, 16));
 		textField.setText("# 1-5");
 		textField.setBounds(218, 128, 70, 27);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.setFont(new Font("SimSun", Font.PLAIN, 16));
+//		btnUpdate.setFont(new Font("SimSun", Font.PLAIN, 16));
 		btnUpdate.setBounds(77, 197, 115, 32);
 		contentPane.add(btnUpdate);
 		btnUpdate.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent a) {
-				int newCredential = Integer.getInteger(textField.getText());
+				int newCredential = Integer.parseInt(textField.getText());
 				model.updateWaterbodyCredential(newCredential);
-				AdminSearchPage page = new AdminSearchPage(model);
+				AdminSearchPage page = new AdminSearchPage(model, model.getSearchName());
 				dispose();
 			}
 			
 		});
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setFont(new Font("SimSun", Font.PLAIN, 16));
+//		btnCancel.setFont(new Font("SimSun", Font.PLAIN, 16));
 		btnCancel.setBounds(244, 197, 115, 32);
 		contentPane.add(btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent a) {
-				AdminSearchPage page = new AdminSearchPage(model);
+				AdminSearchPage page = new AdminSearchPage(model, model.getSearchName());
 				dispose();
 			}
 			
 		});
+		setVisible(true);
 	}
 }

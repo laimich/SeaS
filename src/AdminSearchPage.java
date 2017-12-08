@@ -1,10 +1,13 @@
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -44,7 +47,7 @@ public class AdminSearchPage extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel waterbodyNameLabel = new JLabel("Waterbody Name");
+		JLabel waterbodyNameLabel = new JLabel("Waterbody: " + model.getSearchName());
 		waterbodyNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		waterbodyNameLabel.setBounds(130, 6, 151, 21);
 		contentPane.add(waterbodyNameLabel);
@@ -76,7 +79,7 @@ public class AdminSearchPage extends JFrame {
 		
 		ArrayList<String[]> info = new ArrayList<String[]>();
 		try {
-			info = model.getAdminWaterbodySearch(txtEnterWaterbody);
+			info = model.getAdminWaterbodySearch(model.getSearchName());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -84,7 +87,9 @@ public class AdminSearchPage extends JFrame {
 		DefaultTableModel table = new DefaultTableModel(columnNames, info.size());
 		for(int x = 0; x < info.size(); x++) {
 			table.insertRow(x, info.get(x));
-		waterbodyInfoTable = new JTable();
+		}
+		waterbodyInfoTable = new JTable(table);
+//		waterbodyInfoTable.setCellSelectionEnabled(false);
 		scrollInfoPane.setViewportView(waterbodyInfoTable);
 		
 //		JButton btnHome = new JButton("Home");
