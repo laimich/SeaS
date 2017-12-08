@@ -166,9 +166,8 @@ public class WaterModel {
 			//execute query
 			cs = conn.prepareCall("{CALL searchWaterBodyOrLocation(?)}");
 			cs.setString(1, name);
-			if(cs.execute()) {
-				rs = cs.getResultSet();
-				rs.next();
+			rs = cs.executeQuery();
+			if(rs.next()) {
 				//set search ID
 				searchID = rs.getInt(1);
 				//set search type
