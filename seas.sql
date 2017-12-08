@@ -115,11 +115,10 @@ CREATE TRIGGER updateWaterCredentials
 AFTER UPDATE ON Waterbody 
 FOR EACH ROW 
 BEGIN 
-	IF (New.minCredentials  != Old.minCredentials) 
+	IF (New.minCredentials > Old.minCredentials) 
 	THEN  
-	DELETE FROM Review WHERE New.waterbodyID = waterbodyID and EXISTS 
-        (SELECT * FROM User JOIN Review 
-        WHERE New.waterbodyID = waterbodyID and New.minCredentials > credentials); 
+	DELETE FROM Review WHERE New.waterbodyID = waterbodyID AND userID IN
+		(SELECT userID FROM User WHERE New.minCredentials > credentials);
 	END IF; 
 END; //
 DELIMITER ;
