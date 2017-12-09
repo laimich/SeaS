@@ -20,23 +20,6 @@ public class AdminHomePage extends JFrame {
 	private JPanel AdminMainPanel;
 	private JTextField txtEnterWaterbody;
 
-
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					AdminHomePage frame = new AdminHomePage();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	/**
 	 * Create the frame.
 	 */
