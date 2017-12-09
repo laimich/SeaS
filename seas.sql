@@ -74,7 +74,6 @@ CREATE TABLE ARCHIVEREVIEW (
 	FOREIGN KEY (userID) REFERENCES User(userID) on delete cascade,
 	FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
 );
-ALTER TABLE ARCHIVEREVIEW AUTO_INCREMENT = 2001;
 
 
 /* Triggers */
