@@ -1,0 +1,5 @@
+	,waterbody,101,1
+	,river,102,1
+	,stream,102,2
+	,creek,103,1
+	,test,101,3

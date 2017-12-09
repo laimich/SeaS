@@ -46,7 +46,7 @@ CREATE TABLE REVIEW (
 	waterbodyID INT,
 	reviewDate DATE NOT NULL DEFAULT '0000-00-00',
 	rating INT NOT NULL DEFAULT 1,
-    PRIMARY KEY (reviewID),
+  PRIMARY KEY (reviewID),
 	FOREIGN KEY (userID) REFERENCES User(userID) on delete cascade,
 	FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
 );
@@ -70,7 +70,7 @@ CREATE TABLE ARCHIVEREVIEW (
 	waterbodyID INT,
 	reviewDate DATE NOT NULL DEFAULT '0000-00-00',
 	rating INT NOT NULL DEFAULT 1,
-    PRIMARY KEY (reviewID),
+  PRIMARY KEY (reviewID),
 	FOREIGN KEY (userID) REFERENCES User(userID) on delete cascade,
 	FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
 );
@@ -169,12 +169,10 @@ begin
 	select *
 	from user where inputName = userName and inputPass = pass;
 end; //
-delimiter ;
-
-/* To search for a waterbody or location from user input*/ 
+delimifor a waterbody or location from user input*/ 
 Drop procedure if exists searchWaterbodyOrLocation;
 Delimiter //
-create procedure searchWaterBodyOrLocation(in searchName varchar(30))
+create procedure searchWaterBodyOrLocation(in searchName ((30))
 begin
 	select waterbodyID as ID, "waterbody" as searchType
 		from Waterbody where searchName = waterbodyName
@@ -197,19 +195,6 @@ END//
 DELIMITER ;
 
 /* Admin deletes rating */
-/*
-DROP PROCEDURE IF EXISTS deleteReview;
-DELIMITER //
-CREATE PROCEDURE deleteReview(IN searchName VARCHAR(30), IN inputUserID INT)
-BEGIN
-	DELETE FROM Review
-	WHERE searchName = (SELECT waterbodyName FROM Waterbody) AND
-		inputUserID = userID;
-END//
-DELIMITER ;
-*/
-
-/* Admin deletes rating */
 DROP PROCEDURE IF EXISTS deleteReview;
 DELIMITER //
 CREATE PROCEDURE deleteReview(IN inputReviewID INT)
@@ -223,7 +208,7 @@ DELIMITER ;
 /* Admin views all ratings of a waterbody */
 DROP PROCEDURE IF EXISTS viewAllRatings;
 DELIMITER //
-CREATE PROCEDURE viewAllRatings(IN inputName VARCHAR(60))
+CREATE PROCEDURE viewAllRatings(IN inputName VARCHAR(30))
 BEGIN 
 	SELECT rr.userID, rr.rating, reviewDate
 	FROM Waterbody wb, Review rr
@@ -346,10 +331,11 @@ DELIMITER ;
 
 
 /* Load Data */
-/* LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/books.txt' INTO TABLE BOOK;
-LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/users.txt' INTO TABLE USER;
-LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/loans.txt' INTO TABLE LOAN; */
-LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/origin.txt' INTO TABLE ORIGIN 
+LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/Projects/SeaS/data/origin.txt' INTO TABLE ORIGIN 
 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
-LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/waterbody.txt' INTO TABLE waterbody 
+LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/Projects/SeaS/data/waterbody.txt' INTO TABLE WATERBODY 
 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
+LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/Projects/SeaS/data/user.txt' INTO TABLE USER 
+	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
+LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/Projects/SeaS/data/review.txt' INTO TABLE REVIEW 
+	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';	
