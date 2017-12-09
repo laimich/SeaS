@@ -1,4 +1,4 @@
-import java.awt.EventQueue;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -19,22 +19,7 @@ public class AdminSearchPage extends JFrame {
 
 	private JPanel contentPane;
 	private JTable waterbodyInfoTable;
-
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AdminSearchPage frame = new AdminSearchPage(new WaterModel());
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -90,7 +75,6 @@ public class AdminSearchPage extends JFrame {
 
 		}
 		waterbodyInfoTable = new JTable(table);
-//		waterbodyInfoTable.setCellSelectionEnabled(false);
 		scrollInfoPane.setViewportView(waterbodyInfoTable);
 
 
