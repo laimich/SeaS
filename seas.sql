@@ -18,13 +18,13 @@ ALTER table ORIGIN AUTO_INCREMENT = 101;
 DROP TABLE IF EXISTS WATERBODY;
 CREATE TABLE WATERBODY (
 	waterbodyID INT AUTO_INCREMENT,
-	waterbodyName VARCHAR(55) UNIQUE NOT NULL,
+	waterbodyName VARCHAR(30) UNIQUE NOT NULL,
 	waterID INT,
 	minCredentials INT NOT NULL DEFAULT 1,
     PRIMARY KEY (waterbodyID),
 	FOREIGN KEY(waterID) REFERENCES ORIGIN(waterID) on delete cascade
 );
-ALTER table WATERBODY AUTO_INCREMENT = 501;
+ALTER table WATERBODY AUTO_INCREMENT = 201;
 
 
 DROP TABLE IF EXISTS USER;
@@ -41,14 +41,16 @@ ALTER table USER AUTO_INCREMENT = 1001;
 
 DROP TABLE IF EXISTS REVIEW;
 CREATE TABLE REVIEW (
+	reviewID INT AUTO_INCREMENT,
 	userID INT,
 	waterbodyID INT,
 	reviewDate DATE NOT NULL DEFAULT '0000-00-00',
 	rating INT NOT NULL DEFAULT 1,
-    PRIMARY KEY (userID, waterbodyID),
+    PRIMARY KEY (reviewID),
 	FOREIGN KEY (userID) REFERENCES User(userID) on delete cascade,
 	FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
 );
+ALTER TABLE REVIEW AUTO_INCREMENT = 2001;
 
 
 DROP TABLE IF EXISTS WATERRATING;
@@ -63,14 +65,16 @@ CREATE TABLE WATERRATING (
 
 DROP TABLE IF EXISTS ARCHIVEREVIEW;
 CREATE TABLE ARCHIVEREVIEW (
+	reviewID INT AUTO_INCREMENT,
 	userID INT,
 	waterbodyID INT,
 	reviewDate DATE NOT NULL DEFAULT '0000-00-00',
 	rating INT NOT NULL DEFAULT 1,
-    PRIMARY KEY (userID, waterbodyID),
+    PRIMARY KEY (reviewID),
 	FOREIGN KEY (userID) REFERENCES User(userID) on delete cascade,
 	FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
 );
+ALTER TABLE ARCHIVEREVIEW AUTO_INCREMENT = 2001;
 
 
 /* Triggers */
@@ -103,7 +107,7 @@ BEGIN
 	UPDATE WaterRating SET numRating = numRating-1 WHERE waterbodyID = Old.waterbodyID; 
     UPDATE WaterRating SET avgRating = 
         (SELECT avg(rating) FROM Review GROUP BY waterbodyID HAVING waterbodyID = Old.waterbodyID)
-		WHERE waterbodyID = New.waterbodyID; ; 
+		WHERE waterbodyID = Old.waterbodyID;
 END; //
 DELIMITER ;
 
@@ -115,11 +119,10 @@ CREATE TRIGGER updateWaterCredentials
 AFTER UPDATE ON Waterbody 
 FOR EACH ROW 
 BEGIN 
-	IF (New.minCredentials  != Old.minCredentials) 
+	IF (New.minCredentials > Old.minCredentials) 
 	THEN  
-	DELETE FROM Review WHERE New.waterbodyID = waterbodyID and EXISTS 
-        (SELECT * FROM User JOIN Review 
-        WHERE New.waterbodyID = waterbodyID and New.minCredentials > credentials); 
+	DELETE FROM Review WHERE New.waterbodyID = waterbodyID AND userID IN
+		(SELECT userID FROM User WHERE New.minCredentials > credentials);
 	END IF; 
 END; //
 DELIMITER ;
@@ -193,15 +196,26 @@ BEGIN
 END//
 DELIMITER ;
 
-/* Admin deletes a rating */
+/* Admin deletes rating */
+/*
 DROP PROCEDURE IF EXISTS deleteReview;
 DELIMITER //
-CREATE PROCEDURE deleteReview(IN searchName VARCHAR(30), IN inputUserID INT, IN inputDate DATE, IN inputRating INT)
+CREATE PROCEDURE deleteReview(IN searchName VARCHAR(30), IN inputUserID INT)
 BEGIN
 	DELETE FROM Review
 	WHERE searchName = (SELECT waterbodyName FROM Waterbody) AND
-		(inputUserID, inputDate, inputRating) IN 
-			(SELECT userID, reviewDate, rating FROM Review);
+		inputUserID = userID;
+END//
+DELIMITER ;
+*/
+
+/* Admin deletes rating */
+DROP PROCEDURE IF EXISTS deleteReview;
+DELIMITER //
+CREATE PROCEDURE deleteReview(IN inputReviewID INT)
+BEGIN
+	DELETE FROM Review
+	WHERE inputReviewID = reviewID;
 END//
 DELIMITER ;
 
@@ -295,7 +309,7 @@ Drop procedure if exists adminViewReview;
 Delimiter //
 Create procedure adminViewReview()
 begin
-	SELECT User.userID, userName, waterbodyName, reviewDate, rating 
+	SELECT User.userID, userName, waterbodyName, reviewDate, rating, reviewID
 	FROM User LEFT OUTER JOIN 
 		(SELECT userID, waterbodyName, reviewDate, rating 
 		FROM Review INNER JOIN Waterbody USING (waterbodyID)) as AllReviews
@@ -328,7 +342,6 @@ BEGIN
 END; //
 DELIMITER ;
 
-/*
 
 
 
@@ -336,20 +349,7 @@ DELIMITER ;
 /* LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/books.txt' INTO TABLE BOOK;
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/users.txt' INTO TABLE USER;
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/loans.txt' INTO TABLE LOAN; */
-<<<<<<< HEAD
 LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/origin.txt' INTO TABLE ORIGIN 
 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
 LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/waterbody.txt' INTO TABLE waterbody 
 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
-
-LOAD DATA LOCAL INFILE 'D:/OneDrive/CS/CS157a/SeaS/waterbody.txt' INTO TABLE waterbody 
-	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
-
-LOAD DATA LOCAL INFILE 'D:/OneDrive/CS/CS157a/SeaS/origin.txt' INTO TABLE ORIGIN 
-	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
-=======
--- LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/origin.txt' INTO TABLE ORIGIN 
--- 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
--- LOAD DATA LOCAL INFILE '~/Users/Michelle/Desktop/mysql/waterbody.txt' INTO TABLE waterbody 
--- 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
->>>>>>> acc12530df6adf3b1431182b6fcce364a9de9c2b

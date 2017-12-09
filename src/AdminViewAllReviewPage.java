@@ -62,6 +62,7 @@ public class AdminViewAllReviewPage extends JFrame {
 			table.insertRow(x, info.get(x));
 		}
 		
+		
 		JLabel viewReviewLabel = new JLabel("View All Reviews");
 		viewReviewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		viewReviewLabel.setBounds(130, 6, 151, 21);
@@ -76,9 +77,23 @@ public class AdminViewAllReviewPage extends JFrame {
 				Object input = JOptionPane.showInputDialog("Enter # row of rating to delete: ");
 				int numRow = Integer.parseInt(input.toString());
 				String[] rowInfo = infoCopy.get(numRow-1);
+				int reviewID = Integer.parseInt(rowInfo[6]);
+				model.deleteReview(reviewID);
+
+				try {
+					final ArrayList<String[]> newInfo = model.getAllReviews();
+					if(table.getRowCount() > 0){
+						for (int i = table.getRowCount() - 1; i >= 0; i--) {
+							table.removeRow(i);
+						}
+					}
+					for(int x = 0; x < newInfo.size(); x++) {
+						table.insertRow(x, newInfo.get(x));
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 				
-				
-				//delete review with information in rowInfo
 			}
 			
 		});
