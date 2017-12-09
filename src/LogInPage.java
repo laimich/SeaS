@@ -82,7 +82,7 @@ public class LogInPage extends JFrame {
 					return;
 				}
 				if(model.canLogin(username, password)) {
-					String title = model.getCurrentUserTitle();
+					String title = model.getCurrentUserTitle().trim();
 					
 					//update the archive whenever a user logs in
 					Date currentDate = new Date(System.currentTimeMillis());
