@@ -297,7 +297,7 @@ Create procedure adminViewReview()
 begin
 	SELECT User.userID, userName, waterbodyName, reviewDate, rating, reviewID
 	FROM User LEFT OUTER JOIN 
-		(SELECT userID, waterbodyName, reviewDate, rating 
+		(SELECT userID, waterbodyName, reviewDate, rating, reviewID 
 		FROM Review INNER JOIN Waterbody USING (waterbodyID)) as AllReviews
 		USING (userID);	
 end; //

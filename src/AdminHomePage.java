@@ -104,6 +104,8 @@ public class AdminHomePage extends JFrame {
 				}
 				else if(inputMinCred.toString().equals("")) {
 					JOptionPane.showMessageDialog(null, "Error: Invalid number for min credentials.");
+				}
+				else {
 					try {
 						minCred = Integer.parseInt(inputMinCred.toString());
 					}
@@ -113,8 +115,6 @@ public class AdminHomePage extends JFrame {
 					if(minCred < 1 || minCred > 5) {
 						JOptionPane.showMessageDialog(null, "Error: Invalid number for min credentials.");
 					}
-				}
-				else {
 					model.addWaterbody(inputWaterbody.toString(), inputOrigin.toString(), minCred);
 					JOptionPane.showMessageDialog(null, "Successfully added waterbody!");
 				}

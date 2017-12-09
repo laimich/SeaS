@@ -11,7 +11,7 @@ public class WaterModel {
 
 	//  Database credentials
 	static final String USER = "root";
-	static final String PASS = "1234";//"newpass";
+	static final String PASS = "newpass";//"newpass";
 
 	private User currentUser;
 	private int searchID;

@@ -1,4 +1,4 @@
-	,water,location
-	,ocean,north
-	,pacific,west
-	,atlantic,east
+	,water,location,
+	,ocean,north,
+	,pacific,west,
+	,atlantic,east,
