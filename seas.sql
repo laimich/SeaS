@@ -169,7 +169,9 @@ begin
 	select *
 	from user where inputName = userName and inputPass = pass;
 end; //
-delimifor a waterbody or location from user input*/ 
+delimiter ;
+
+/* To search for a waterbody or location from user input*/ 
 Drop procedure if exists searchWaterbodyOrLocation;
 Delimiter //
 create procedure searchWaterBodyOrLocation(in searchName ((30))
