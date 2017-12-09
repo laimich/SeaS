@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -21,21 +20,6 @@ public class AdminViewAllReviewPage extends JFrame {
 	private JPanel contentPane;
 	private JTable waterbodyInfoTable;
 	private WaterModel model;
-	
-	/* 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AdminViewAllReviewPage frame = new AdminViewAllReviewPage();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
 
 	/**
 	 * Create the frame.
