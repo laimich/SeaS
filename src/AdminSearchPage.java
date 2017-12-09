@@ -38,7 +38,7 @@ public class AdminSearchPage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AdminSearchPage(WaterModel model, String txtEnterWaterbody) {
+	public AdminSearchPage(WaterModel model) {
 		setTitle("SeaS Admin Search Waterbody");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 425, 320);
@@ -87,14 +87,18 @@ public class AdminSearchPage extends JFrame {
 		DefaultTableModel table = new DefaultTableModel(columnNames, info.size());
 		for(int x = 0; x < info.size(); x++) {
 			table.insertRow(x, info.get(x));
+
 		}
 		waterbodyInfoTable = new JTable(table);
 //		waterbodyInfoTable.setCellSelectionEnabled(false);
 		scrollInfoPane.setViewportView(waterbodyInfoTable);
+
+
 		
-//		JButton btnHome = new JButton("Home");
-//		btnHome.setBounds(285, 3, 81, 29);
-//		contentPane.add(btnHome);
+//			JButton btnHome = new JButton("Home");
+//			btnHome.setBounds(285, 3, 81, 29);
+//			contentPane.add(btnHome);
 		setVisible(true);
+	
 	}
 }

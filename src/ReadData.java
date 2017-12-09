@@ -120,7 +120,7 @@ public class ReadData {
 	private void writeWaterbody(Writer writer, List<String> list) {
 		try {
 			writer.write("\t");
-			writer.write(list.get(0).substring(2));
+			//writer.write(list.get(0).substring(2));
 			writer.write(",");
 			writer.write(list.get(1));
 			writer.write("\n");

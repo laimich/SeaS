@@ -41,14 +41,16 @@ ALTER table USER AUTO_INCREMENT = 1001;
 
 DROP TABLE IF EXISTS REVIEW;
 CREATE TABLE REVIEW (
+	reviewID INT AUTO_INCREMENT,
 	userID INT,
 	waterbodyID INT,
 	reviewDate DATE NOT NULL DEFAULT '0000-00-00',
 	rating INT NOT NULL DEFAULT 1,
-    -- PRIMARY KEY (userID, waterbodyID),
+  PRIMARY KEY (reviewID),
 	FOREIGN KEY (userID) REFERENCES User(userID) on delete cascade,
 	FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
 );
+ALTER TABLE REVIEW AUTO_INCREMENT = 2001;
 
 
 DROP TABLE IF EXISTS WATERRATING;
@@ -63,14 +65,16 @@ CREATE TABLE WATERRATING (
 
 DROP TABLE IF EXISTS ARCHIVEREVIEW;
 CREATE TABLE ARCHIVEREVIEW (
+	reviewID INT AUTO_INCREMENT,
 	userID INT,
 	waterbodyID INT,
 	reviewDate DATE NOT NULL DEFAULT '0000-00-00',
 	rating INT NOT NULL DEFAULT 1,
-    -- PRIMARY KEY (userID, waterbodyID),
+  PRIMARY KEY (reviewID),
 	FOREIGN KEY (userID) REFERENCES User(userID) on delete cascade,
 	FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID) on delete cascade
 );
+ALTER TABLE ARCHIVEREVIEW AUTO_INCREMENT = 2001;
 
 
 /* Triggers */
@@ -165,12 +169,10 @@ begin
 	select *
 	from user where inputName = userName and inputPass = pass;
 end; //
-delimiter ;
-
-/* To search for a waterbody or location from user input*/ 
+delimifor a waterbody or location from user input*/ 
 Drop procedure if exists searchWaterbodyOrLocation;
 Delimiter //
-create procedure searchWaterBodyOrLocation(in searchName varchar(30))
+create procedure searchWaterBodyOrLocation(in searchName ((30))
 begin
 	select waterbodyID as ID, "waterbody" as searchType
 		from Waterbody where searchName = waterbodyName
@@ -195,11 +197,10 @@ DELIMITER ;
 /* Admin deletes rating */
 DROP PROCEDURE IF EXISTS deleteReview;
 DELIMITER //
-CREATE PROCEDURE deleteReview(IN searchName VARCHAR(30), IN inputUserID INT)
+CREATE PROCEDURE deleteReview(IN inputReviewID INT)
 BEGIN
 	DELETE FROM Review
-	WHERE searchName = (SELECT waterbodyName FROM Waterbody) AND
-		inputUserID = userID;
+	WHERE inputReviewID = reviewID;
 END//
 DELIMITER ;
 
@@ -207,7 +208,7 @@ DELIMITER ;
 /* Admin views all ratings of a waterbody */
 DROP PROCEDURE IF EXISTS viewAllRatings;
 DELIMITER //
-CREATE PROCEDURE viewAllRatings(IN inputName VARCHAR(60))
+CREATE PROCEDURE viewAllRatings(IN inputName VARCHAR(30))
 BEGIN 
 	SELECT rr.userID, rr.rating, reviewDate
 	FROM Waterbody wb, Review rr
@@ -293,7 +294,7 @@ Drop procedure if exists adminViewReview;
 Delimiter //
 Create procedure adminViewReview()
 begin
-	SELECT User.userID, userName, waterbodyName, reviewDate, rating 
+	SELECT User.userID, userName, waterbodyName, reviewDate, rating, reviewID
 	FROM User LEFT OUTER JOIN 
 		(SELECT userID, waterbodyName, reviewDate, rating 
 		FROM Review INNER JOIN Waterbody USING (waterbodyID)) as AllReviews
@@ -330,9 +331,6 @@ DELIMITER ;
 
 
 /* Load Data */
-/* LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/books.txt' INTO TABLE BOOK;
-LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/users.txt' INTO TABLE USER;
-LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/mysql/loans.txt' INTO TABLE LOAN; */
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/Projects/SeaS/data/origin.txt' INTO TABLE ORIGIN 
 	FIELDS TERMINATED BY ',' LINES STARTING BY '\t';
 LOAD DATA LOCAL INFILE 'C:/Users/Michelle/Desktop/Projects/SeaS/data/waterbody.txt' INTO TABLE WATERBODY 

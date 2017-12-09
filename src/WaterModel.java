@@ -11,7 +11,7 @@ public class WaterModel {
 
 	//  Database credentials
 	static final String USER = "root";
-	static final String PASS = "newpass";
+	static final String PASS = "1234";//"newpass";
 
 	private User currentUser;
 	private int searchID;
@@ -432,13 +432,14 @@ public class WaterModel {
 				ResultSet rs = cs.getResultSet();
 				int i = 1;
 				while(rs.next()) {
-					String[] entry = new String[6];
+					String[] entry = new String[7];
 					entry[0] = i + "";
-					entry[1] = rs.getInt(1) + ""; //userID of review
-					entry[2] = rs.getString(2); //userName of review
-					entry[3] = rs.getString(3); //waterbody name of review
-					entry[4] = rs.getDate(4) + ""; //date of review
-					entry[5] = rs.getInt(5) + ""; //rating of review
+					entry[1] = rs.getInt("userID") + ""; //userID of review
+					entry[2] = rs.getString("userName"); //userName of review
+					entry[3] = rs.getString("waterbodyName"); //waterbody name of review
+					entry[4] = rs.getDate("reviewDate") + ""; //date of review
+					entry[5] = rs.getInt("rating") + ""; //rating of review
+					entry[6] = rs.getInt("reviewID") + ""; //reviewID of review
 					info.add(entry);
 					i++;
 				}
@@ -513,6 +514,25 @@ public class WaterModel {
 			//cs.setInt(2, currentUser.getID());
 			//cs.setDate(3, date);
 			//cs.setInt(4, c);
+			cs.execute();
+		} 
+		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC
+		catch(Exception e){ e.printStackTrace(); } //Handle errors for Class.forName
+		finally{ //finally block used to close resources
+			try{ if(stmt!=null) stmt.close(); if(pstmt!=null) pstmt.close(); if(cs!=null) cs.close(); }
+			catch(SQLException se2){} //Nothing we can do
+			try{ if(conn!=null) conn.close(); } 
+			catch(SQLException se){ se.printStackTrace(); }
+			//end finally try
+		}//end try
+	}
+	
+	public void deleteReview(int reviewID) {
+		try {
+			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			
+			CallableStatement cs = conn.prepareCall("{CALL deleteReview(?)}");	
+			cs.setInt(1, reviewID);
 			cs.execute();
 		} 
 		catch(SQLException se){ se.printStackTrace(); } //Handle errors for JDBC

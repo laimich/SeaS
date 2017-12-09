@@ -89,7 +89,7 @@ public class AdminUpdateWaterCredPage extends JFrame {
 			public void actionPerformed(ActionEvent a) {
 				int newCredential = Integer.parseInt(textField.getText());
 				model.updateWaterbodyCredential(newCredential);
-				AdminSearchPage page = new AdminSearchPage(model, model.getSearchName());
+				AdminSearchPage page = new AdminSearchPage(model);
 				dispose();
 			}
 			
@@ -103,7 +103,7 @@ public class AdminUpdateWaterCredPage extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent a) {
-				AdminSearchPage page = new AdminSearchPage(model, model.getSearchName());
+				AdminSearchPage page = new AdminSearchPage(model);
 				dispose();
 			}
 			
