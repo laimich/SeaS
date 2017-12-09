@@ -31,6 +31,10 @@ public class UserHomePage extends JFrame {
 		
 		//get current user's info
 		String[] info = model.getUserHomeInfo();
+		int numReviews = Integer.parseInt(info[2]);
+		if (numReviews >= model.getCurrentUserCredentials() * 5) {
+			model.updateUserCredential((model.getCurrentUserCredentials() + 1));
+		}
 		
 		searchArea = new JTextField();
 		searchArea.setHorizontalAlignment(SwingConstants.CENTER);
@@ -61,9 +65,7 @@ public class UserHomePage extends JFrame {
 					else {
 						JOptionPane.showMessageDialog(null, "Invalid waterbody or location");
 					}
-					int numReviews = Integer.parseInt(info[2]);
-
-					if (numReviews > model.getCurrentUserCredentials() * 5) {
+					if (numReviews >= model.getCurrentUserCredentials() * 5) {
 						model.updateUserCredential((model.getCurrentUserCredentials() + 1));
 					}
 				}
@@ -92,7 +94,7 @@ public class UserHomePage extends JFrame {
 		revLabel.setBounds(83, 186, 79, 16);
 		homePagePanel.add(revLabel);
 		
-		JLabel creNumLabel = new JLabel(info[1]);
+		JLabel creNumLabel = new JLabel(model.getCurrentUserCredentials() + "");
 		creNumLabel.setBounds(230, 136, 81, 16);
 		homePagePanel.add(creNumLabel);
 		

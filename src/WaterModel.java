@@ -166,9 +166,8 @@ public class WaterModel {
 			//execute query
 			cs = conn.prepareCall("{CALL searchWaterBodyOrLocation(?)}");
 			cs.setString(1, name);
-			if(cs.execute()) {
-				rs = cs.getResultSet();
-				rs.next();
+			rs = cs.executeQuery();
+			if(rs.next()) {
 				//set search ID
 				searchID = rs.getInt(1);
 				//set search type
@@ -603,7 +602,7 @@ public class WaterModel {
 		try {
 			//establish connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-				
+			currentUser.setCredentials(credential);
 			CallableStatement cs = conn.prepareCall("{CALL updateCredentials(?,?)}");	
 			cs.setInt(1, credential);
 			cs.setInt(2, currentUser.getID());

@@ -94,6 +94,7 @@ public class AdminViewAllReviewPage extends JFrame {
 					e.printStackTrace();
 				}
 				
+
 			}
 			
 		});

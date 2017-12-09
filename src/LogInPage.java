@@ -1,8 +1,4 @@
 
-
-
-
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -21,23 +17,6 @@ public class LogInPage extends JFrame {
 	private JPanel logInMainPanel;
 	private JTextField userNameText;
 	private JTextField passwordText;
-
-
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					LogInPage frame = new LogInPage();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the frame.
@@ -96,9 +75,10 @@ public class LogInPage extends JFrame {
 						UserHomePage admin = new UserHomePage(model);
 						dispose();
 					}
+				}else{
+					JOptionPane.showMessageDialog(null, "Invalid username/password combination");
 				}
 			}
-			
 		});
 		
 		JButton registerButton = new JButton("Register");
@@ -110,7 +90,6 @@ public class LogInPage extends JFrame {
 				RegisterPage reg = new RegisterPage(model);
 				dispose();
 			}
-			
 		});
 		
 		setVisible(true);
