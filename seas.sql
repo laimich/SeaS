@@ -174,7 +174,7 @@ delimiter ;
 /* To search for a waterbody or location from user input*/ 
 Drop procedure if exists searchWaterbodyOrLocation;
 Delimiter //
-create procedure searchWaterBodyOrLocation(in searchName ((30))
+create procedure searchWaterBodyOrLocation(in searchName varchar(30))
 begin
 	select waterbodyID as ID, "waterbody" as searchType
 		from Waterbody where searchName = waterbodyName
