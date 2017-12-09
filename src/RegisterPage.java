@@ -1,4 +1,4 @@
-import java.awt.EventQueue;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,22 +19,6 @@ public class RegisterPage extends JFrame {
 	private JTextField userNameText;
 	private JTextField passwordsText;
 	private JTextField ifExistUser;
-	
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					RegisterPage frame = new RegisterPage();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the frame.
